@@ -13,8 +13,9 @@ dependencies = [
 ]
 
 [project.scripts]
+kickoff = "marketing_agent_engine.main:kickoff"
+run_crew = "marketing_agent_engine.main:kickoff"
 marketing_agent_engine = "marketing_agent_engine.main:run"
-run_crew = "marketing_agent_engine.main:run"
 train = "marketing_agent_engine.main:train"
 replay = "marketing_agent_engine.main:replay"
 test_crew = "marketing_agent_engine.main:test"

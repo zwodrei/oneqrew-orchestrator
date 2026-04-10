@@ -11,6 +11,26 @@ load_dotenv()
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 from marketing_agent_engine.config.settings import settings
+from marketing_agent_engine.flows.task_orchestrator_flow import TaskOrchestratorFlow  # noqa: F401
+
+
+def kickoff() -> None:
+    """Flow entry point for AMP — runs the TaskOrchestratorFlow."""
+    import json
+    import sys
+
+    trigger_payload: dict | None = None
+    if len(sys.argv) >= 2:
+        try:
+            trigger_payload = json.loads(sys.argv[1])
+        except (json.JSONDecodeError, IndexError):
+            pass
+
+    flow = TaskOrchestratorFlow()
+    if trigger_payload:
+        flow.kickoff({"crewai_trigger_payload": trigger_payload})
+    else:
+        flow.kickoff()
 
 
 def run() -> None:
