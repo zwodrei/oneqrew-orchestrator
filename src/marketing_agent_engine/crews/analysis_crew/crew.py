@@ -35,7 +35,6 @@ class AnalysisCrew:
     tasks_config = "config/tasks.yaml"
 
     def __init__(self, ticket: dict[str, Any] | None = None) -> None:
-        super().__init__()
         self._ticket = ticket or {}
 
     # ------------------------------------------------------------------

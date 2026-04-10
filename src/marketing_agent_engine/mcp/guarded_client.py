@@ -68,10 +68,16 @@ class GuardedMCPClient:
     # ------------------------------------------------------------------
 
     def connect(self) -> None:
-        self._client.connect()
+        if not self.dry_run:
+            self._client.connect()
+        else:
+            logger.info("DRY_RUN: skipping MCP client connection.")
 
     def disconnect(self) -> None:
-        self._client.disconnect()
+        if not self.dry_run:
+            self._client.disconnect()
+        else:
+            logger.info("DRY_RUN: skipping MCP client disconnection.")
 
     def __enter__(self) -> "GuardedMCPClient":
         self.connect()
