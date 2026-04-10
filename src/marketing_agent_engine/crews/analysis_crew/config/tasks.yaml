@@ -6,11 +6,22 @@ routing_task:
     Ticket data:
     {ticket_json}
 
+    IMPORTANT — Before calling the route_ticket tool:
+    1. Extract relevant keywords from the ticket title and notes (e.g. "Wärmepumpe",
+       "Newsletter", "Dach", "SHK", "Bau", "Solar", "Holz").
+    2. Identify the likely domain/cluster based on these keywords:
+       - SHK+E: keywords like "Wärmepumpe", "Heizung", "Sanitär", "Klima", "Energie"
+       - Dach_und_Holz: keywords like "Dach", "Holz", "Zimmerei", "Bedachung"
+       - Baugewerbe: keywords like "Bau", "Baustelle", "Architekt", "Planung"
+    3. Use these extracted keywords and domain hints as context when calling the tool.
+    4. The tool will use both keyword matching and project GID to determine routing.
+
     Steps:
-    1. Call the route_ticket tool with the ticket title, notes, and project GID.
-    2. Return the full RoutingResult as structured JSON.
-    3. Do NOT guess. Do NOT add interpretation. Report exactly what the tool returns.
-    4. If cluster is "unbekannt", report that honestly — do not try to force a cluster.
+    1. Analyze the ticket title and notes for domain-specific keywords.
+    2. Call the route_ticket tool with the full ticket JSON (includes title and notes).
+    3. Return the full RoutingResult as structured JSON.
+    4. Do NOT guess. Do NOT add interpretation. Report exactly what the tool returns.
+    5. If cluster is "unbekannt", report that honestly — do not try to force a cluster.
 
     Your output must include:
     - cluster (string)
