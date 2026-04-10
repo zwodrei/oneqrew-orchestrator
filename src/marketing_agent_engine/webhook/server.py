@@ -279,7 +279,7 @@ def start() -> None:
     )
     uvicorn.run(
         "marketing_agent_engine.webhook.server:app",
-        host="0.0.0.0",
+        host=host,
         port=port,
         reload=reload,
         log_level="info",
