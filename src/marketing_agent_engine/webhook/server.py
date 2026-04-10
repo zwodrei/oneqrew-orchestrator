@@ -267,12 +267,14 @@ def start() -> None:
     """Start the webhook server. Called via: uv run webhook_server"""
     import uvicorn
 
-    port = int(os.getenv("WEBHOOK_PORT", "8000"))
-    host = os.getenv("WEBHOOK_HOST", "0.0.0.0")
+    # Railway sets PORT; fall back to WEBHOOK_PORT then 8000
+    port = int(os.getenv("PORT") or os.getenv("WEBHOOK_PORT") or "8000")
+    host = "0.0.0.0"  # always bind to all interfaces for Railway / containers
     reload = os.getenv("WEBHOOK_RELOAD", "false").lower() == "true"
 
+    print(f"Starting Marketing Intelligence Layer webhook server on {host}:{port} (dry_run={settings.dry_run})")
     logger.info(
-        "Starting Marketing Intelligence Layer webhook server on %s:%d (dry_run=%s)",
+        "Starting webhook server on %s:%d (dry_run=%s)",
         host, port, settings.dry_run,
     )
     uvicorn.run(
@@ -282,3 +284,7 @@ def start() -> None:
         reload=reload,
         log_level="info",
     )
+
+
+if __name__ == "__main__":
+    start()

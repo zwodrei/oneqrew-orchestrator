@@ -3,8 +3,10 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "uv run --prerelease=allow webhook_server",
+    "startCommand": "uv run --prerelease=allow python -m marketing_agent_engine.webhook.server",
     "healthcheckPath": "/health",
-    "healthcheckTimeout": 30
+    "healthcheckTimeout": 60,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
   }
 }
