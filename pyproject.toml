@@ -1,0 +1,38 @@
+[project]
+name = "marketing_agent_engine"
+version = "0.1.0"
+description = "Marketing Agent Engine – Task Orchestrator using CrewAI"
+authors = [{ name = "oneqrew", email = "dev@oneqrew.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]==1.13.0rc1",
+    "pydantic>=2.0",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+    "pytest>=8.0",
+]
+
+[project.scripts]
+marketing_agent_engine = "marketing_agent_engine.main:run"
+run_crew = "marketing_agent_engine.main:run"
+train = "marketing_agent_engine.main:train"
+replay = "marketing_agent_engine.main:replay"
+test_crew = "marketing_agent_engine.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "flow"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-v"
+
+[tool.uv]
+prerelease = "allow"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/marketing_agent_engine"]

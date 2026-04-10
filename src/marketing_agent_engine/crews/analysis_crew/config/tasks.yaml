@@ -1,0 +1,182 @@
+routing_task:
+  description: >
+    Analyze the following Asana ticket and determine its cluster and business unit
+    using the route_ticket domain tool.
+
+    Ticket data:
+    {ticket_json}
+
+    Steps:
+    1. Call the route_ticket tool with the ticket title, notes, and project GID.
+    2. Return the full RoutingResult as structured JSON.
+    3. Do NOT guess. Do NOT add interpretation. Report exactly what the tool returns.
+    4. If cluster is "unbekannt", report that honestly — do not try to force a cluster.
+
+    Your output must include:
+    - cluster (string)
+    - business_unit (object or null)
+    - cluster_coordinator_id (string or null)
+    - confidence (float)
+    - resolution_path (list of strings)
+  expected_output: >
+    A JSON object with keys: cluster, business_unit, cluster_coordinator_id,
+    confidence, resolution_path. No prose. No extra commentary.
+  agent: routing_analyst
+
+assignment_task:
+  description: >
+    Analyze the assignee and recommend replacements for the following Asana ticket
+    using the analyse_assignment domain tool.
+
+    Ticket data:
+    {ticket_json}
+
+    Known routing result (use cluster_slug for scoped recommendations):
+    {routing_result_json}
+
+    Steps:
+    1. Call the analyse_assignment tool with the ticket dict and dry_run={dry_run}.
+    2. Return the full AssignmentAnalysis as structured JSON.
+    3. Include the plausibility verdict for the current assignee.
+    4. Include up to 3 ranked recommendations with employee_id, display_name,
+       confidence, matched_skills, and reason.
+    5. Set needs_reassignment and reassignment_reason accurately.
+
+    Your output must include:
+    - current_assignee_verdict (object or null)
+    - recommendations (list, max 3)
+    - needs_reassignment (bool)
+    - reassignment_reason (string)
+  expected_output: >
+    A JSON object with keys: current_assignee_verdict, recommendations,
+    needs_reassignment, reassignment_reason. No prose.
+  agent: assignment_analyst
+  context:
+    - routing_task
+
+completeness_task:
+  description: >
+    Evaluate the completeness of the following Asana ticket using the
+    check_completeness domain tool.
+
+    Ticket data:
+    {ticket_json}
+
+    Steps:
+    1. Call the check_completeness tool with the full ticket dict.
+    2. Return the CompletenessResult as structured JSON.
+    3. List every criterion that did NOT pass under "missing".
+    4. List all warning messages under "warnings".
+    5. Categorize each missing item by responsible party:
+       - "requester" — the person who created the ticket must supply this
+       - "coordinator" — the cluster coordinator must fill this in
+       - "system" — should be auto-populated by Asana (e.g. workspace, permalink)
+
+    Your output must include:
+    - score (float, 0–1)
+    - passed (bool)
+    - missing (list of strings)
+    - warnings (list of strings)
+    - missing_by_owner (object: {requester: [], coordinator: [], system: []})
+  expected_output: >
+    A JSON object with keys: score, passed, missing, warnings, missing_by_owner.
+    No prose.
+  agent: completeness_analyst
+  context:
+    - routing_task
+
+synthesis_task:
+  description: >
+    You have received outputs from three specialist agents. Synthesize them into
+    one final structured decision object for this Asana ticket.
+
+    Ticket data:
+    {ticket_json}
+
+    Routing result: (from routing_task output)
+    Assignment analysis: (from assignment_task output)
+    Completeness evaluation: (from completeness_task output)
+
+    Build a final JSON decision with this structure:
+    {{
+      "ticket_id": "<task GID or title>",
+      "dry_run": {dry_run},
+      "execution_mode": "dry_run",
+      "model_used": "{model}",
+      "timestamp": "<iso8601 UTC timestamp>",
+      "routing": {{
+        "cluster": "...",
+        "business_unit_slug": "...",
+        "routing_confidence": 0.0,
+        "coordinator_id": "..."
+      }},
+      "assignment": {{
+        "verdict": "plausible|questionable|implausible|unknown",
+        "assignment_confidence": 0.0,
+        "needs_reassignment": false,
+        "reassignment_reason": "...",
+        "top_recommendation": {{
+          "employee_id": "...",
+          "display_name": "...",
+          "confidence": 0.0,
+          "matched_skills": []
+        }}
+      }},
+      "completeness": {{
+        "completeness_score": 0.0,
+        "passed": false,
+        "missing_count": 0,
+        "critical_missing": []
+      }},
+      "actions": [
+        {{
+          "priority": 1,
+          "action": "...",
+          "owner": "...",
+          "reason": "..."
+        }}
+      ],
+      "overall_status": "ready|needs_attention|blocked",
+      "decision_trace": {{
+        "routing": "<one sentence: how cluster/BU was resolved, what matched, confidence level>",
+        "assignment": "<one sentence: why verdict was set, which skills matched or were missing>",
+        "completeness": "<one sentence: score, how many criteria passed, which ones failed>"
+      }}
+    }}
+
+    Rules for overall_status:
+    - "ready": routing_confidence >0.6 AND assignment plausible AND completeness passed
+    - "needs_attention": any one of routing/assignment/completeness has a warning
+    - "blocked": cluster=unbekannt OR completeness_score < 0.5 OR assignment=implausible
+
+    Rules for execution_mode: always set to "dry_run" when {dry_run}=true, else "live".
+    Rules for timestamp: current UTC time in ISO 8601 format (e.g. 2025-04-15T10:30:00Z).
+    Rules for routing_confidence: copy from routing agent output field "confidence".
+    Rules for assignment_confidence: use top recommendation "confidence" if assignee unknown,
+      else use 1.0 for plausible, 0.5 for questionable, 0.1 for implausible, 0.0 for unknown.
+
+    Rules for decision_trace:
+    - routing: summarize how the cluster was resolved (matched keywords, GID, or fallback)
+      and state the confidence. Example: "Routed to SHK+E via keyword match on 'wärmepumpe'
+      (confidence 0.69); coordinator emp_002 assigned."
+    - assignment: explain the verdict with evidence. Example: "Assignee Felix Hoffmann
+      is implausible — task requires seo/analytics but employee covers design/social_media only."
+    - completeness: state score and list failed criteria. Example: "Score 0.73 (8/11);
+      failed: tags_present, custom_fields_filled, followers_present."
+    - Each value must be a single human-readable sentence. No nested objects. No lists.
+
+    Rules for actions list:
+    - Prioritize by severity (blocked > needs_attention)
+    - Each action must have: priority (int), action (string), owner (string), reason (string)
+    - Do NOT invent actions not supported by the upstream agent outputs
+    - Maximum 5 actions
+
+    IMPORTANT: Output ONLY the JSON object. No prose before or after.
+  expected_output: >
+    A single valid JSON object matching the structure above exactly.
+    No markdown fences. No explanatory text. Only the JSON.
+  agent: decision_synthesizer
+  context:
+    - routing_task
+    - assignment_task
+    - completeness_task
