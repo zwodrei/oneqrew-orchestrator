@@ -10,15 +10,20 @@ dependencies = [
     "python-dotenv>=1.0",
     "pyyaml>=6.0",
     "pytest>=8.0",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "httpx>=0.27",
 ]
 
 [project.scripts]
 kickoff = "marketing_agent_engine.main:kickoff"
 run_crew = "marketing_agent_engine.main:kickoff"
+run_with_trigger = "marketing_agent_engine.main:run_with_trigger"
 marketing_agent_engine = "marketing_agent_engine.main:run"
 train = "marketing_agent_engine.main:train"
 replay = "marketing_agent_engine.main:replay"
 test_crew = "marketing_agent_engine.main:test"
+webhook_server = "marketing_agent_engine.webhook.server:start"
 
 [build-system]
 requires = ["hatchling"]

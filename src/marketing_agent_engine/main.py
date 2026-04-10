@@ -80,6 +80,37 @@ def run() -> None:
     print(result.summary())
 
 
+def run_with_trigger() -> None:
+    """
+    AMP trigger entry point — receives a JSON payload from sys.argv[1].
+    Called by: uv run run_with_trigger '<json>'
+    Also used by crewai trigger CLI.
+    """
+    import json as _json
+    from marketing_agent_engine.runtime.orchestrator_runner import OrchestratorRunner
+
+    if len(sys.argv) < 2:
+        raise SystemExit("run_with_trigger: JSON payload required as first argument")
+
+    try:
+        payload = _json.loads(sys.argv[1])
+    except _json.JSONDecodeError as exc:
+        raise SystemExit(f"run_with_trigger: Invalid JSON — {exc}") from exc
+
+    # AMP wraps the real payload in crewai_trigger_payload
+    ticket = payload.get("crewai_trigger_payload", payload)
+
+    runner = OrchestratorRunner()
+    result = runner.run(ticket)
+
+    import json
+    print("\n" + "=" * 60)
+    print("TRIGGER RESULT")
+    print("=" * 60)
+    print(result.summary())
+    print(json.dumps(result.json_output, indent=2, default=str))
+
+
 def train() -> None:
     from marketing_agent_engine.crews.analysis_crew.crew import AnalysisCrew
     inputs = {"dry_run": str(settings.dry_run), "model": settings.model}
