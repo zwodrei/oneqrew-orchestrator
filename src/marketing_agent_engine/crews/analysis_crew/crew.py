@@ -22,7 +22,21 @@ from .domain_tools import (
 # Knowledge sources — employee JSON files loaded relative to project root
 # ---------------------------------------------------------------------------
 
-_KNOWLEDGE_DIR = Path(__file__).parents[6] / "knowledge"
+def _find_knowledge_dir() -> Path:
+    """Walk upward from this file until we find a ``knowledge/`` directory."""
+    current = Path(__file__).resolve().parent
+    for _ in range(10):
+        candidate = current / "knowledge"
+        if candidate.is_dir():
+            return candidate
+        parent = current.parent
+        if parent == current:
+            break
+        current = parent
+    raise FileNotFoundError("Could not locate knowledge/ directory from " + str(Path(__file__)))
+
+
+_KNOWLEDGE_DIR = _find_knowledge_dir()
 _EMPLOYEE_FILES = [
     str(p.relative_to(_KNOWLEDGE_DIR))
     for p in (_KNOWLEDGE_DIR / "employees").glob("*.json")
