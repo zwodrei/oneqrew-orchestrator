@@ -1,185 +1,304 @@
 # Employee Knowledge Base
 
-This document describes each team member's strengths, typical tasks, and working style.
-It is intended to help agents understand *why* someone is a good fit — not to override
-the deterministic skill matrix in `domain/employees.py`.
+This document describes each team member's strengths, typical tasks, and AI-readiness.
+It provides qualitative context for agents — the authoritative skill matrix and assignments
+live in `domain/employees.py` and `knowledge/team_skill_map.json`.
 
 ---
 
-## Anna Müller — Content & SEO Spezialistin (SHK+E)
+## Maren Hoyer — Marketing-Business-Partnerin SHK+E
 
-Anna schreibt Texte, die sowohl für Leser als auch für Suchmaschinen funktionieren.
-Ihr Schwerpunkt liegt auf Produktseiten, Ratgeberartikeln und Landingpages für den
-SHK-Bereich (Heizung, Sanitär).
+Maren ist die zentrale Ansprechpartnerin für alle Marketingaktivitäten im SHK+E-Cluster.
+Sie koordiniert Kampagnen, Messe-Einladungen und Landing-Page-Projekte.
 
 **Typische Aufgaben:**
-- Blogartikel über Wärmepumpen, Heizsysteme und Sanierungsthemen
-- SEO-Optimierung von bestehenden Produktseiten
-- Keyword-Recherche für Heizung und Sanitär
-- Überarbeitung und Lektorat von Fachtexten
+- Kampagnenplanung und -koordination (z. B. Wärmepumpe Q2)
+- Messeeinladungen und Partnermarketing (z. B. SHK Essen)
+- Landing-Pages und Heizungscheck-Kampagnen
+- Event-Koordination und Cluster-übergreifende Abstimmungen
+
+**AI-Readiness:** AI-Bereit — nutzt KI-Tools gelegentlich, offen für Automatisierung.
 
 **Stärken:**
-- Verständliche Erklärung technischer Sachverhalte für Endkunden
-- Keyword-Integration ohne Lesbarkeit zu opfern
-- Recherche zu regulatorischen Themen (BEG, GEG, Förderprogramme)
+- Kampagnenmanagement im SHK-Umfeld
+- Koordination zwischen Vertrieb und Marketing
+- Partnermarketing und Messe-Organisation
 
 **Nicht geeignet für:**
-- Grafikdesign oder Video-Content
-- Paid-Kampagnen (kein Ads-Hintergrund)
-- Cross-Cluster-Projekte außerhalb SHK
+- Technische WordPress- oder HubSpot-Implementierungen
+- Print-Design oder Grafikproduktion
+- SEO-Tiefenanalyse
 
 ---
 
-## Ben Schmidt — Performance Marketing & Social (SHK+E, Koordinator)
+## Sara Niklassik — Marketing-Business-Partnerin Dach & Holz
 
-Ben ist der Koordinator des SHK+E-Clusters und bringt breite Erfahrung in
-bezahlter Werbung und Social-Media-Kanälen mit.
+Sara betreut den Dach-&-Holz-Cluster und koordiniert Schulungen, Partnerschaften
+und Messeauftritte für diesen Bereich.
 
 **Typische Aufgaben:**
-- Google Ads und Meta Ads Kampagnen für Heizung und Elektro-Produkte
-- Instagram- und Facebook-Content-Planung
-- Conversion-Tracking und UTM-Struktur
-- Monatliches Performance-Reporting für SHK+E
+- Referenzen und Schulungskoordination
+- Messe-Organisation (Dach & Holz-Cluster)
+- Partnerschaftspflege und Terminmanagement
+- Cluster-spezifische Kampagnenkoordination
+
+**AI-Readiness:** AI-Bereit — nutzt KI-Tools gelegentlich.
 
 **Stärken:**
-- Budgetoptimierung bei Paid Campaigns
-- A/B-Testing von Ad-Creatives
-- Schnittstellenfunktion zwischen Marketing und Vertrieb
+- Fachkenntnisse im Dach- und Holzbaubereich
+- Schulungs- und Partnerkoordination
+- Veranstaltungsorganisation
+
+---
+
+## Matteo Diehl — HubSpot-Spezialist & Marketing-Automation
+
+Matteo ist der primäre Ansprechpartner für alle HubSpot-Themen und Marketing-Automation.
+
+**Typische Aufgaben:**
+- Kontaktformulare und Webhooks in HubSpot
+- Double-Opt-In-Mails und CRM-Automation
+- Redirects und Automatisierungsworkflows
+- CRM-Datenpflege und Marketing-Automation-Setups
+
+**AI-Readiness:** AI-Erfahren — nutzt KI-Tools regelmäßig, kann AI-gestützte Workflows aufsetzen.
+
+**Stärken:**
+- HubSpot-Expertise (technisch und strategisch)
+- Marketing-Automation und CRM
+- Webhook- und API-Integrationen
+
+**Nicht geeignet für:**
+- Grafikdesign oder Print-Produktion
+- Messe-Logistik
+- SEO-Strategieentwicklung
+
+---
+
+## Finja Witt — Grafikdesignerin & Junior Marketing-Automation
+
+Finja arbeitet an Landing-Pages, Design-Assets und unterstützt bei Automatisierungs-Tasks.
+
+**Typische Aufgaben:**
+- Landing-Page-Korrekturen und Layout-Guidelines
+- SEA- und Mailing-Task-Support
+- Grafik-Assets und Banner
+- Junior-Support bei HubSpot-Aufgaben
+
+**AI-Readiness:** AI-Bereit — offen für KI-Tools, nutzt sie gelegentlich.
+
+**Stärken:**
+- Grafikdesign und visuelle Gestaltung
+- Landing-Page-Design und Layout
+- SEA-Support (Assets)
+
+---
+
+## Ines Müller — Grafikdesignerin & Landing-Page-/Content-Creator
+
+Ines pflegt Landing-Pages und Produktseiten und erstellt Event-Grafiken.
+
+**Typische Aufgaben:**
+- Landing-Pages und Produktseiten pflegen
+- Subscription-Sites und Event-Grafiken
+- HubSpot-Tasks (vereinzelt)
+- Content-Erstellung für digitale Kanäle
+
+**AI-Readiness:** AI-Bereit — nutzt KI-Tools gelegentlich.
+
+**Stärken:**
+- Landing-Page-Pflege und Content-Creation
+- Produktseiten und Subscription-Sites
+- Event-Grafiken und digitale Assets
+
+---
+
+## Laura Piccolomo — Senior SEO & Content-Strategist
+
+Laura ist die SEO- und Content-Expertin des Teams und nutzt Custom-GPT aktiv.
+
+**Typische Aufgaben:**
+- Keyword-Recherchen und SEO-Analysen
+- Custom-GPT zur Textproduktion
+- Content-Strategieentwicklung
+- SEO-Optimierung von Seiten und Texten
+
+**AI-Readiness:** AI-Erfahren — nutzt AI-Tools regelmäßig (Custom-GPT, AI-Texterstellung).
+
+**Stärken:**
+- SEO-Strategie und Keyword-Research
+- AI-gestützte Textproduktion
+- Content-Strategie und Redaktionsplanung
+
+**Nicht geeignet für:**
+- Technische Implementierungen (HubSpot, WordPress)
+- Event-Organisation
+- Print-Design
+
+---
+
+## Lina Weiß — Grafikdesignerin Print-Design
+
+Lina spezialisiert sich auf Print-Design und erstellt Logos, Leitfäden und Messe-Grafiken.
+
+**Typische Aufgaben:**
+- Logos und Corporate-Design-Elemente
+- Print-Leitfäden und E-Mail-Signaturen
+- Messe-Grafiken und Ausstellungsmaterialien
+- QrewNet-Beiträge
+
+**AI-Readiness:** AI-Novice — wenig Erfahrung mit KI-Tools. Bei AI-intensiven Aufgaben `human_review_required` setzen.
+
+**Stärken:**
+- Print-Design und Corporate Identity
+- Logo-Design und Markenkonsistenz
+- Messe-Grafiken und physische Werbemittel
+
+**Hinweis:** Bei AI-intensiven Aufgaben Koordinator einbeziehen und `human_review_required = true`.
+
+---
+
+## Sandra Hoppe — Senior Full-Stack-Marketing-Designerin & AI-Pioneer
+
+Sandra ist die einzige AI-Pioneer im Team und setzt Prompt-Engineering und AI-Tools produktiv ein.
+
+**Typische Aufgaben:**
+- Skript-Updates und UI-Fehlerbeseitigung
+- Fotografie und Stock-Organisation
+- UI/UX-Design und Fehlerbeseitigung
+- AI-gestützte Design- und Content-Workflows
+
+**AI-Readiness:** AI-Pioneer — nutzt Prompt-Engineering und AI-Tools produktiv. Erste Wahl für AI-intensive Aufgaben.
+
+**Stärken:**
+- Prompt-Engineering und AI-Tool-Expertise
+- Full-Stack-Marketing-Design (UI/UX, Fotografie, Skripte)
+- AI-gestützte Workflows und Automation
+
+**Als AI-Ressource:**
+- Erste Empfehlung für Aufgaben, die generative KI, Bildgenerierung oder Prompt-Engineering erfordern
+- Kann AI-Novices bei der Einführung unterstützen
+
+---
+
+## André Köhler — Messe- & Eventmanager
+
+André organisiert Messen und Events logistisch von A bis Z.
+
+**Typische Aufgaben:**
+- Ticket-Management und Messe-Anmeldungen
+- Debriefings nach Veranstaltungen
+- Budget-Tracking für Events
+- Event-Logistik
+
+**AI-Readiness:** AI-Novice — wenig KI-Erfahrung. Bei AI-intensiven Tasks `human_review_required` setzen.
+
+**Stärken:**
+- Event-Logistik und Messe-Organisation
+- Budget-Management für Veranstaltungen
+- Koordination vor Ort
+
+---
+
+## Christina Helms — Messe- & Eventmanagerin
+
+Christina plant und koordiniert Networking-Events und Messebeteiligungen.
+
+**Typische Aufgaben:**
+- Networking-Events planen und umsetzen
+- Speaker-Slots und Agenda-Management
+- Raumausstattung und Technik-Koordination
+- Messebeteiligung und Stand-Organisation
+
+**AI-Readiness:** AI-Novice — wenig KI-Erfahrung. Bei AI-intensiven Tasks `human_review_required` setzen.
+
+**Stärken:**
+- Event-Planung und Durchführung
+- Speaker-Management und Programmgestaltung
+- Technische Koordination vor Ort
+
+---
+
+## Madelin Grohmann — Social-Media-Managerin & Content-Creator
+
+Madelin verantwortet die gesamte Social-Media-Präsenz und experimentiert mit UGC.
+
+**Typische Aufgaben:**
+- Social-Media-Posts (Instagram, LinkedIn, Facebook)
+- UGC-Experimente und Community-Management
+- Messe-Beiträge und Event-Social-Content
+- Vereinzelte HubSpot- und Event-Tasks
+
+**AI-Readiness:** AI-Bereit — offen für KI-Tools, nutzt sie gelegentlich.
+
+**Stärken:**
+- Social-Media-Strategie und Content-Creation
+- UGC und Community-Management
+- Cross-Kanal-Content (Messe, Social, Email)
+
+---
+
+## Janosch Niemeyer — Webmaster & WordPress-Dev
+
+Janosch ist der primäre Ansprechpartner für alle WordPress-Themen.
+
+**Typische Aufgaben:**
+- WordPress-Updates und Plugin-Management
+- Kontaktformulare und Filterfunktionen
+- Blog-Anpassungen und Landing-Page-Templates
+- Technische WordPress-Implementierungen
+
+**AI-Readiness:** AI-Bereit — nutzt KI-Tools gelegentlich.
+
+**Stärken:**
+- WordPress-Entwicklung und -Administration
+- Plugin-Integration (WPForms, etc.)
+- PHP-Anpassungen und Template-Entwicklung
+
+**Nicht geeignet für:**
+- Design-intensive Aufgaben ohne technischen Bezug
+- Messe-Organisation
+- SEO-Strategie
+
+---
+
+## Susanne Arasin — Interne Kommunikation
+
+Susanne verantwortet die interne Kommunikation und Intranet-Pflege.
+
+**Typische Aufgaben:**
+- Intranet-News und interne Newsletters
+- FAQ-Pflege und Wissensmanagement
+- Marketingseiten-Updates intern
+- Interne Kommunikationsmaßnahmen
+
+**AI-Readiness:** AI-Bereit — offen für KI-Tools (zwischen Novice und Bereit einzuordnen).
+
+**Stärken:**
+- Interne Kommunikation und Intranet
+- Textredaktion und FAQ-Pflege
+- Interne Newsletter-Erstellung
+
+---
+
+## Philipp Ehring — Koordinator (Cross-Cluster)
+
+Philipp ist der übergreifende Koordinator und Ansprechpartner für Querschnittsthemen.
+
+**Typische Aufgaben:**
+- BU-Informationslieferungen koordinieren
+- Namensänderungen und administrative Tasks
+- Landing-Pages und SEA-Task-Koordination
+- Mailing-Tasks und übergreifende Projekte
+
+**AI-Readiness:** AI-Bereit — nutzt KI-Tools gelegentlich.
 
 **Als Koordinator:**
-- Erste Anlaufstelle für unklare Ticket-Zuordnungen im SHK+E-Cluster
-- Prüft Vollständigkeit von Kampagnenbriefings
+- Erste Anlaufstelle bei unklarer Ticketzuordnung
 - Eskalationspfad bei fehlender Zuweisung
-
-**Nicht geeignet für:**
-- Tiefe technische Texte (SEO-Onpage ist Annas Domäne)
-- Holzbau- oder Dach-spezifische Themen
-
----
-
-## Clara Weber — E-Mail Marketing & Design (Dach_und_Holz)
-
-Clara betreut das E-Mail-Marketing für den Dach-und-Holz-Cluster und erstellt
-visuell ansprechende Kommunikationsmaterialien.
-
-**Typische Aufgaben:**
-- Newsletter-Kampagnen für Dach- und Holzbauprodukte
-- Design von E-Mail-Templates und Bannern in Canva
-- Redaktionsplan für saisonale Aktionen (Frühjahrssanierung, Wintervorbereitung)
-- Bildbearbeitung und Erstellung von Infografiken
+- Prüft AI-Readiness-Anforderungen bei neuen Projekten
 
 **Stärken:**
-- Konsistente Markenkommunikation über E-Mail-Kanäle
-- Saisonales Timing von Kampagnen
-- Verbindung von Design und Text in Newslettern
-
-**Nicht geeignet für:**
-- SEO oder technische Textoptimierung
-- Paid Ads
-- Rohbau- oder Baugewerbe-Themen
-
----
-
-## David Klein — SEO & Analytics (Dach_und_Holz, Koordinator)
-
-David ist Koordinator des Dach_und_Holz-Clusters und verantwortet die technische
-SEO-Performance sowie das Daten-Reporting.
-
-**Typische Aufgaben:**
-- Technisches SEO-Audit für Dach- und Holzbauseiten
-- Google Search Console Auswertung und Linkbuilding
-- Google Analytics Konfiguration und Event-Tracking
-- SEO-Reports für Dachdeckung, Flachdach und Holzbau
-
-**Stärken:**
-- Verbindung von Daten und Inhaltsstrategie
-- Identifikation von Rankings-Chancen in Nischenbereichen
-- Technische Kompetenz für Core Web Vitals
-
-**Als Koordinator:**
-- Ansprechpartner für alle SEO- und Analytics-Fragen im Cluster
-- Überprüft Keyword-Strategie bei neuen Ticket-Anfragen
-- Koordiniert Zusammenarbeit zwischen Clara und externen Texter:innen
-
-**Nicht geeignet für:**
-- Social Media Content
-- Video-Produktion
-- SHK- oder Baugewerbe-spezifische Inhalte
-
----
-
-## Eva Braun — Projektmanagement & Strategie (Baugewerbe, Koordinatorin)
-
-Eva ist Koordinatorin des Baugewerbe-Clusters und hält die strategische Übersicht
-über Kampagnen, Briefings und Redaktionspläne.
-
-**Typische Aufgaben:**
-- Erstellung und Verwaltung von Jahres- und Quartalskampagnenplänen
-- Briefing-Erstellung für externe Agenturen und Freelancer
-- Redaktionsplanung für Rohbau, Ausbau und Tiefbau-Inhalte
-- Textentwicklung für erklärungsbedürftige Bauprodukte
-
-**Stärken:**
-- Strukturiertes Denken bei komplexen Mehrstufen-Kampagnen
-- Stakeholder-Kommunikation mit Vertrieb und Produktteams
-- Erfahrung mit langen Content-Lifecycles (Ratgeber, Whitepaper)
-
-**Als Koordinatorin:**
-- Zentraler Knotenpunkt für alle Kampagnenanfragen im Baugewerbe
-- Prüft Priorisierung und Ressourcenplanung
-- Erste Instanz bei Eskalationen aus dem Cluster
-
-**Nicht geeignet für:**
-- Design oder Grafikproduktion (Felix' Domäne)
-- Performance Marketing / Paid Ads
-- Tiefe technische SEO-Arbeit
-
----
-
-## Felix Hoffmann — Design & Social Media (Baugewerbe)
-
-Felix produziert visuellen Content für Social-Media-Kanäle des Baugewerbe-Clusters.
-
-**Typische Aufgaben:**
-- Instagram Reels und TikTok-Videos für Maler- und Ausbauprodukte
-- Grafikdesign für Social Posts und Stories
-- Erstellung von kurzen Video-Snippets für Produkt-Demos
-- Canva-Templates für wiederkehrende Kampagnenformate
-
-**Stärken:**
-- Modernes visuelles Storytelling für jüngere Zielgruppen
-- Schnelle Produktion von Social-Content-Serien
-- Markengerechte Anpassung visueller Elemente
-
-**Nicht geeignet für:**
-- SEO oder textbasierte Inhalte
-- E-Mail-Kampagnen
-- Strategische Planung oder Briefing-Erstellung
-
----
-
-## Greta Fischer — Cross-Cluster Strategie & Analytics
-
-Greta ist die einzige Mitarbeiterin ohne feste Cluster-Zuordnung. Sie arbeitet
-cluster-übergreifend an Strategie, Reporting und KPI-Management.
-
-**Typische Aufgaben:**
-- Jahresplanung und Budget-Allokation über alle Cluster hinweg
-- Konsolidiertes Reporting für die Geschäftsleitung
-- KPI-Definitionen und Zielvereinbarungen pro Cluster
-- Koordination bei cluster-übergreifenden Projekten
-
-**Stärken:**
-- Überblick über alle Cluster ohne inhaltliche Spezialisierung
-- Erfahrung mit Dashboards und Daten-Präsentationen
-- Moderationskompetenz bei Ressourcenkonflikten
-
-**Besonderheit:**
-- Greta sollte NICHT für operative Ticket-Bearbeitung assigned werden
-- Ihr Einsatz ist sinnvoll bei Strategie-Tickets, Budget-Reviews und Reports
-- Bei cluster-spezifischen Aufgaben immer den Cluster-Koordinator vorziehen
-
-**Nicht geeignet für:**
-- Operative Content-Produktion
-- Cluster-spezifische Fachthemen
-- Design oder technische Umsetzung
+- Querschnittsthemen und Koordination
+- Übergreifende Projektplanung
+- BU- und Cluster-Kommunikation

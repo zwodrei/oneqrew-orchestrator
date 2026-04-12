@@ -91,6 +91,92 @@ All thresholds are constants in `flows/task_orchestrator_flow.py`.
 
 ---
 
+## Knowledge Base & Skill Matrix
+
+### Employee knowledge files (`knowledge/employees/`)
+
+One JSON file per team member (e.g. `knowledge/employees/maren_hoyer.json`) with:
+
+| Field | Description |
+|---|---|
+| `employee_id` | Internal ID (e.g. `emp_001`) |
+| `name` / `role` | Display name and job title |
+| `ai_readiness` | `AI-Pioneer` / `AI-Erfahren` / `AI-Bereit` / `AI-Novice` |
+| `primary_tasks` | List of main task types |
+| `skills` / `channels` | Tool/channel expertise |
+| `skill_domains` | Machine-readable `SkillDomain` values for routing |
+
+`knowledge/employees/employees.md` contains a prose description for each of the 14 real team members (replaces fictional placeholder personas).
+
+### Skill matrix (`knowledge/team_skill_map.json`)
+
+Central mapping `task_category → { primary, secondary, coordinator }` with `ai_readiness_map` per person.
+
+| Key | Example |
+|---|---|
+| `WordPress/Webmaster` | `{ "primary": ["Janosch Niemeyer"], "secondary": ["Sandra Hoppe"] }` |
+| `HubSpot/Marketing-Automation` | `{ "primary": ["Matteo Diehl"], ... }` |
+
+`ai_readiness_levels` section documents levels 1–4 (Novice → Pioneer).
+
+### AI-Readiness in agent logic
+
+The `analyse_assignment()` function in `domain/assignment_rules.py` now:
+
+1. Calls `categorize_task(title, notes)` → `TaskCategory`
+2. Calls `determine_ai_readiness_required(title, notes, category)` → `AIReadiness`
+3. Passes `min_ai_readiness` to `recommend_assignees()` — novices are filtered out for AI-intensive tasks
+4. Passes `required_ai_readiness` to `evaluate_assignee_plausibility()` — sets `human_review_required=True` on mismatch
+
+New fields on `AssignmentAnalysis`:
+
+| Field | Description |
+|---|---|
+| `task_category` | Detected task category (e.g. `"HubSpot/Marketing-Automation"`) |
+| `ai_readiness_required` | Minimum AI-readiness for the task |
+| `assignee_readiness` | AI-readiness level of the current assignee |
+| `recommended_assignee_ai_level` | AI-readiness of the top-ranked recommendation |
+| `assigned_by_skill_matrix` | `true` when no assignee was set and the matrix was used to recommend |
+
+**Routing logic:**
+- Tasks requiring `AI-Erfahren` or higher are only recommended to experienced/pioneer employees
+- `AI-Novice` assignees always trigger `human_review_required=True`
+- If an assignee's AI-readiness is below the task requirement → `needs_reassignment=True`
+
+---
+
+## Brand Guides (`knowledge/brand_guides/`)
+
+17 PDF brand guides for each business unit, loaded into the CrewAI knowledge base via `PDFKnowledgeSource`.
+
+| File | Business Unit | Cluster |
+|---|---|---|
+| `AAA-EDV.pdf` | AAA-EDV | Baugewerbe |
+| `ACCANTUM.pdf` | ACCANTUM | SHK+E |
+| `BAUFAKTURA.pdf` | BAUFAKTURA | Baugewerbe |
+| `BLUESOLUTION.pdf` | blue:solution | SHK+E |
+| `CP-PRO.pdf` | CP-PRO | Dach & Holz |
+| `DIGI.pdf` | DIGI | Dach & Holz |
+| `EXTRAGROUP.pdf` | EXTRAGROUP | Dach & Holz |
+| `MEXXSOFT.pdf` | MEXXSOFT | SHK+E |
+| `MSOFT.pdf` | M-SOFT | Dach & Holz |
+| `MyOneQrew.pdf` | OneQrew | cross-cluster |
+| `PFISTERER.pdf` | PFISTERER | SHK+E |
+| `PINNCALC.pdf` | PINNCALC | Dach & Holz |
+| `PRAKOLM.pdf` | PRAKOLM | Baugewerbe |
+| `QOMET.pdf` | QOMET | SHK+E |
+| `SCIREUM.pdf` | SCIREUM | Baugewerbe |
+| `SYKASOFT.pdf` | SYKASOFT | SHK+E |
+| `TAIFUN.pdf` | TAIFUN | SHK+E |
+
+### Integration
+
+- **Index**: `knowledge/brand_guides/index.json` maps each PDF to its BU and cluster
+- **Loading**: `AnalysisCrew._build_knowledge_sources()` loads all 17 PDFs via `PDFKnowledgeSource` alongside the employee JSON files
+- **Agent access**: All four agents in the AnalysisCrew can query brand guide content through CrewAI's built-in RAG
+
+---
+
 ## Environment Variables
 
 ```env
@@ -125,7 +211,8 @@ oneqrew/
 │   ├── runtime/         # OrchestratorRunner (pipeline entry point)
 │   └── main.py          # crewai run entry point
 ├── knowledge/
-│   ├── employees/       # 7 employees with skill matrix
+│   ├── employees/       # 14 real team members (JSON + employees.md overview)
+│   ├── brand_guides/    # 17 PDF brand guides + index.json
 │   ├── business_units/  # 12 BUs across 3 clusters
 │   ├── policies/        # Routing, assignment, completeness (SOURCE OF TRUTH notices)
 │   └── context/         # 6 annotated example tickets
@@ -149,6 +236,7 @@ uv run --prerelease=allow pytest tests/ -v
 ```
 
 - **138 tests** across 5 files
++- **`test_skill_matrix.py`** now includes `TestAnalyseAssignmentNewFields` covering AI-readiness routing, `assigned_by_skill_matrix`, and `recommended_assignee_ai_level`.
 - No LLM calls, no Asana connection
 - Covers all 5 decision branches, all MCP guard rules, all presenter fields
 - Uses `_analysis_override` hook for deterministic flow tests

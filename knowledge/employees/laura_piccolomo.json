@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_006",
+  "name": "Laura Piccolomo",
+  "role": "Senior SEO & Content-Strategist",
+  "ai_readiness": "AI-Erfahren",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Keyword-Recherchen", "Custom-GPT Textproduktion", "Content-Strategien"],
+  "skills": ["SEO", "Keyword-Recherche", "Content-Strategie", "Custom-GPT", "AI-Textproduktion"],
+  "channels": ["SEO", "Content", "AI-Tools"],
+  "skill_domains": ["seo", "content_creation", "copywriting", "strategy"],
+  "notes": "Senior-Expertin für SEO und Content-Strategie. Nutzt Custom-GPT für skalierte Textproduktion. Ideal für AI-gestützte Content-Aufgaben.",
+  "examples": ["Keyword-Recherche Q2 SHK", "Content-Strategie Dach-Cluster", "AI-Texte Produktseiten"]
+}

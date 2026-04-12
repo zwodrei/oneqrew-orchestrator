@@ -111,11 +111,19 @@ def _verify_signature(body: bytes, signature_header: str | None) -> bool:
 _RELEVANT_RESOURCE_TYPES = {"task"}
 _RELEVANT_ACTIONS = {"added", "changed"}
 
+# Only process 'added' events to avoid duplicate runs from 'changed' events
+# that fire immediately after task creation (notes, html_notes, etc.).
+_PRIMARY_ACTIONS = {"added"}
+
 
 def _should_process(event: dict[str, Any]) -> tuple[bool, str]:
     """
     Returns (should_process, reason).
-    Filters to task created/changed events only.
+    Filters to task created events only (not changed).
+    Asana sends 'added' + multiple 'changed' events on task creation.
+    Processing only 'added' avoids duplicate runs.
+    'changed' events are still relevant for later manual edits and can
+    be enabled via ASANA_PROCESS_CHANGED=true env var.
     """
     resource = event.get("resource", {})
     resource_type = resource.get("resource_type", "")
@@ -128,6 +136,12 @@ def _should_process(event: dict[str, Any]) -> tuple[bool, str]:
         return False, f"skip action={action}"
     if not task_gid:
         return False, "skip: no task gid"
+
+    # Only process 'added' by default; 'changed' triggers too many dupes
+    allowed_actions = _RELEVANT_ACTIONS if os.getenv("ASANA_PROCESS_CHANGED", "false").lower() == "true" else _PRIMARY_ACTIONS
+    if action not in allowed_actions:
+        return False, f"skip action={action} (not in allowed set)"
+
     return True, "ok"
 
 
@@ -154,6 +168,18 @@ def _process_event(task_gid: str, action: str, change: dict[str, Any]) -> None:
     except Exception as exc:
         logger.error("Failed to fetch task %s: %s", task_gid, exc)
         _log_trigger(task_gid, action, "fetch_error", str(exc))
+        return
+
+    # Skip tasks with no meaningful content (Asana may fire 'added' before
+    # the user has filled in any fields)
+    task_name = task.get("name", "") or ""
+    task_notes = task.get("notes", "") or ""
+    if len(task_name) < 3 and len(task_notes) < 10:
+        logger.info(
+            "Skipping empty/minimal task %s: name=%r notes=%r",
+            task_gid, task_name[:50], task_notes[:50],
+        )
+        _log_trigger(task_gid, action, "skipped_empty", "Task has no meaningful content yet")
         return
 
     try:

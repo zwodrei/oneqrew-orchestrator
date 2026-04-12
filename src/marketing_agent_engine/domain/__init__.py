@@ -40,6 +40,7 @@ from .routing_rules import (
     route_ticket,
 )
 from .schemas import (
+    AIReadiness,
     AssigneeRecommendation,
     AssigneePlausibilityResult,
     BusinessUnitMatch,
@@ -49,14 +50,18 @@ from .schemas import (
     PlausibilityVerdict,
     RoutingResult,
     SkillDomain,
+    TaskCategory,
 )
 from .skill_matching import (
     evaluate_assignee_plausibility,
     recommend_assignees,
     resolve_skill_domain,
 )
+from .task_categorization import categorize_task, determine_ai_readiness_required
 
 __all__ = [
+    "AIReadiness",
+    "TaskCategory",
     "ClusterSlug",
     "SkillDomain",
     "AssigneeRecommendation",
@@ -96,4 +101,6 @@ __all__ = [
     "check_completeness",
     "AssignmentAnalysis",
     "analyse_assignment",
+    "categorize_task",
+    "determine_ai_readiness_required",
 ]

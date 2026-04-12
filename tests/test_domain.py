@@ -157,18 +157,19 @@ class TestCheckCompleteness:
 
 class TestEvaluatePlausibility:
     def test_social_media_employee_is_plausible_for_social_task(self) -> None:
-        # emp_002: SOCIAL_MEDIA, PAID_ADS, ANALYTICS
+        # emp_011: Madelin Grohmann — SOCIAL_MEDIA, CONTENT_CREATION, EMAIL_MARKETING
         result = evaluate_assignee_plausibility(
-            "emp_002",
+            "emp_011",
             title="Instagram Facebook Reel Social Media Post",
-            description="instagram reel community social paid facebook-ads",
+            description="instagram reel community social ugc facebook",
         )
         assert result.verdict == PlausibilityVerdict.PLAUSIBLE
 
     def test_seo_employee_is_implausible_for_pure_design_task(self) -> None:
-        # emp_004: SEO, ANALYTICS, TECHNICAL — design task should be low match
+        # emp_006: Laura Piccolomo — SEO, CONTENT_CREATION, COPYWRITING, STRATEGY
+        # design task (design domain only) should be low/no match
         result = evaluate_assignee_plausibility(
-            "emp_004",
+            "emp_006",
             title="Design Grafik Canva Banner Visual Mockup Infografik",
             description="design grafik canva figma bildbearbeitung infografik mockup banner visual",
         )

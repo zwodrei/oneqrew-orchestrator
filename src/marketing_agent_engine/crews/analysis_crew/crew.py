@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from typing import Any
 
 from crewai import Agent, Crew, Process, Task
+from crewai.knowledge.source.json_knowledge_source import JSONKnowledgeSource
+from crewai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 
@@ -14,6 +17,35 @@ from .domain_tools import (
     check_completeness_tool,
     route_ticket_tool,
 )
+
+# ---------------------------------------------------------------------------
+# Knowledge sources — employee JSON files loaded relative to project root
+# ---------------------------------------------------------------------------
+
+_KNOWLEDGE_DIR = Path(__file__).parents[6] / "knowledge"
+_EMPLOYEE_FILES = [
+    str(p.relative_to(_KNOWLEDGE_DIR))
+    for p in (_KNOWLEDGE_DIR / "employees").glob("*.json")
+] + ["team_skill_map.json"]
+
+_BRAND_GUIDE_FILES = sorted(
+    str(p.relative_to(_KNOWLEDGE_DIR))
+    for p in (_KNOWLEDGE_DIR / "brand_guides").glob("*.pdf")
+)
+
+
+def _build_knowledge_sources() -> list:
+    sources: list = []
+    try:
+        sources.append(JSONKnowledgeSource(file_paths=_EMPLOYEE_FILES))
+    except Exception:
+        pass
+    if _BRAND_GUIDE_FILES:
+        try:
+            sources.append(PDFKnowledgeSource(file_paths=_BRAND_GUIDE_FILES))
+        except Exception:
+            pass
+    return sources
 
 
 @CrewBase
@@ -115,6 +147,7 @@ class AnalysisCrew:
             tasks=self.tasks,
             process=Process.sequential,
             verbose=True,
+            knowledge_sources=_build_knowledge_sources(),
         )
 
     # ------------------------------------------------------------------

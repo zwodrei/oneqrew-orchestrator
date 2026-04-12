@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_014",
+  "name": "Philipp Ehring",
+  "role": "Koordinator",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["BU-Informationslieferungen", "Namensänderungen", "Landing-Pages", "SEA-Tasks", "Mailing-Tasks"],
+  "skills": ["Koordination", "Projektmanagement", "Landing-Pages", "SEA-Support", "Cross-BU-Kommunikation"],
+  "channels": ["Koordination", "Landing-Pages", "SEA", "Email"],
+  "skill_domains": ["project_management", "content_creation", "paid_ads"],
+  "notes": "Querschnitts-Koordinator für diverse Aufgaben über Business Units hinweg. Ansprechpartner für BU-übergreifende Projekte.",
+  "examples": ["BU-Info-Lieferung SHK", "Namensänderung Landing-Page", "SEA-Task Koordination"]
+}

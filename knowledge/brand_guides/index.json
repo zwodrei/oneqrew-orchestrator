@@ -1,0 +1,87 @@
+{
+  "AAA-EDV.pdf": {
+    "business_unit": "AAA-EDV",
+    "cluster": "Baugewerbe",
+    "description": "Brand Guide für AAA-EDV"
+  },
+  "ACCANTUM.pdf": {
+    "business_unit": "ACCANTUM",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für ACCANTUM"
+  },
+  "BAUFAKTURA.pdf": {
+    "business_unit": "BAUFAKTURA",
+    "cluster": "Baugewerbe",
+    "description": "Corporate Design Guide für BAUFAKTURA"
+  },
+  "BLUESOLUTION.pdf": {
+    "business_unit": "blue:solution",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für blue:solution (SMARTHANDWERK / SMARTZEIT)"
+  },
+  "CP-PRO.pdf": {
+    "business_unit": "CP-PRO",
+    "cluster": "Dach_und_Holz",
+    "description": "Brand Guide für CP-PRO"
+  },
+  "DIGI.pdf": {
+    "business_unit": "DIGI",
+    "cluster": "Dach_und_Holz",
+    "description": "Brand Guide für DIGI (Dachdecker & Zimmerer)"
+  },
+  "EXTRAGROUP.pdf": {
+    "business_unit": "EXTRAGROUP",
+    "cluster": "Dach_und_Holz",
+    "description": "Brand Guide für EXTRAGROUP (Dachdeckerei)"
+  },
+  "MEXXSOFT.pdf": {
+    "business_unit": "MEXXSOFT",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für MEXXSOFT"
+  },
+  "MSOFT.pdf": {
+    "business_unit": "M-SOFT",
+    "cluster": "Dach_und_Holz",
+    "description": "Brand Guide für M-SOFT (Dachdecker, Zimmerei, Holzbau)"
+  },
+  "MyOneQrew.pdf": {
+    "business_unit": "OneQrew",
+    "cluster": "cross-cluster",
+    "description": "Dachmarken Brand Guide für OneQrew"
+  },
+  "PFISTERER.pdf": {
+    "business_unit": "PFISTERER",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für PFISTERER"
+  },
+  "PINNCALC.pdf": {
+    "business_unit": "PINNCALC",
+    "cluster": "Dach_und_Holz",
+    "description": "Brand Guide für PINNCALC"
+  },
+  "PRAKOLM.pdf": {
+    "business_unit": "PRAKOLM",
+    "cluster": "Baugewerbe",
+    "description": "Brand Guide für PRAKOLM"
+  },
+  "QOMET.pdf": {
+    "business_unit": "QOMET",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für QOMET"
+  },
+  "SCIREUM.pdf": {
+    "business_unit": "SCIREUM",
+    "cluster": "Baugewerbe",
+    "description": "Brand Guide für SCIREUM"
+  },
+  "SYKASOFT.pdf": {
+    "business_unit": "SYKASOFT",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für SYKASOFT (SHK & Elektro)"
+  },
+  "TAIFUN.pdf": {
+    "business_unit": "TAIFUN",
+    "cluster": "SHK+E",
+    "description": "Brand Guide für TAIFUN (SHK, Klima, Solar)"
+  }
+}

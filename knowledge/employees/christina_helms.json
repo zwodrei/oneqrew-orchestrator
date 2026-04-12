@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_010",
+  "name": "Christina Helms",
+  "role": "Messe- & Eventmanagerin",
+  "ai_readiness": "AI-Novice",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Networking-Events", "Speaker-Slots", "Raumausstattung", "Technik"],
+  "skills": ["Eventmanagement", "Speaker-Management", "Veranstaltungstechnik", "Raumplanung"],
+  "channels": ["Event", "Messe"],
+  "skill_domains": ["project_management"],
+  "notes": "Spezialistin für Eventplanung und Speaker-Management. AI-Novice — bei AI-intensiven Aufgaben human_review_required setzen.",
+  "examples": ["Networking-Event ISH", "Speaker-Koordination Webinar", "Technik-Setup Messe"]
+}

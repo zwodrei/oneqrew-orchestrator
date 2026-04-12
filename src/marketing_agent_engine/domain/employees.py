@@ -1,8 +1,8 @@
 """
 Employee data, skill matrix, and employee domain models.
 
-All employee records are sourced from internal HR data.
-Employee IDs match Asana user GIDs where applicable.
+Real team members of the Marketing team.
+Employee IDs match internal identifiers.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from .schemas import SkillDomain
+from .schemas import AIReadiness, SkillDomain
 
 
 class Employee(BaseModel):
@@ -23,124 +23,222 @@ class Employee(BaseModel):
     business_unit_slugs: list[str] = Field(default_factory=list)
     skill_domains: list[SkillDomain] = Field(default_factory=list)
     skill_tags: list[str] = Field(default_factory=list)
+    ai_readiness: AIReadiness = AIReadiness.READY
     is_coordinator: bool = False
     is_active: bool = True
     notes: str = ""
 
 
 # ---------------------------------------------------------------------------
-# Employee registry
+# Employee registry — 14 real team members
 # ---------------------------------------------------------------------------
 
 EMPLOYEES: list[Employee] = [
     Employee(
         employee_id="emp_001",
-        display_name="Anna Müller",
-        email="a.mueller@example.com",
+        display_name="Maren Hoyer",
+        email="m.hoyer@example.com",
         cluster_slugs=["SHK+E"],
-        business_unit_slugs=["shk_heizung", "shk_sanitaer"],
         skill_domains=[
+            SkillDomain.EMAIL_MARKETING,
             SkillDomain.CONTENT_CREATION,
-            SkillDomain.COPYWRITING,
-            SkillDomain.SEO,
+            SkillDomain.PROJECT_MANAGEMENT,
         ],
-        skill_tags=["blog", "landingpage", "produkttext", "seo-onpage"],
-        is_coordinator=False,
-        is_active=True,
+        skill_tags=["kampagnen", "einladungen", "messe-partnerschaften", "landing-pages", "kampagnen-koordination"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=True,
+        notes="Marketing-Business-Partnerin SHK+E. Koordiniert Kampagnen, Messe-Einladungen und Landing-Pages.",
     ),
     Employee(
         employee_id="emp_002",
-        display_name="Ben Schmidt",
-        email="b.schmidt@example.com",
-        cluster_slugs=["SHK+E"],
-        business_unit_slugs=["shk_elektro", "shk_klima"],
+        display_name="Sara Niklassik",
+        email="s.niklassik@example.com",
+        cluster_slugs=["Dach_und_Holz"],
         skill_domains=[
-            SkillDomain.SOCIAL_MEDIA,
-            SkillDomain.PAID_ADS,
-            SkillDomain.ANALYTICS,
+            SkillDomain.PROJECT_MANAGEMENT,
+            SkillDomain.EMAIL_MARKETING,
+            SkillDomain.CONTENT_CREATION,
         ],
-        skill_tags=["instagram", "facebook-ads", "google-ads", "tracking"],
+        skill_tags=["referenzen", "schulungen", "termine", "partnerschaften", "messe-organisation"],
+        ai_readiness=AIReadiness.READY,
         is_coordinator=True,
-        is_active=True,
-        notes="SHK+E cluster coordinator",
+        notes="Marketing-Business-Partnerin Dach & Holz. Koordiniert Schulungen, Partnerschaften und Messen.",
     ),
     Employee(
         employee_id="emp_003",
-        display_name="Clara Weber",
-        email="c.weber@example.com",
-        cluster_slugs=["Dach_und_Holz"],
-        business_unit_slugs=["dach_ziegel", "dach_flachdach", "holzbau"],
+        display_name="Matteo Diehl",
+        email="m.diehl@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
         skill_domains=[
-            SkillDomain.CONTENT_CREATION,
             SkillDomain.EMAIL_MARKETING,
-            SkillDomain.DESIGN,
+            SkillDomain.TECHNICAL,
+            SkillDomain.ANALYTICS,
         ],
-        skill_tags=["newsletter", "email-kampagne", "canva", "bildbearbeitung"],
+        skill_tags=["hubspot", "webhook", "automation", "double-opt-in", "kontaktformular", "redirect"],
+        ai_readiness=AIReadiness.EXPERIENCED,
         is_coordinator=False,
-        is_active=True,
+        notes="HubSpot-Spezialist. Primäransprechpartner für alle Automation-Aufgaben.",
     ),
     Employee(
         employee_id="emp_004",
-        display_name="David Klein",
-        email="d.klein@example.com",
-        cluster_slugs=["Dach_und_Holz"],
-        business_unit_slugs=["dach_ziegel", "holzbau", "dach_abdichtung"],
+        display_name="Finja Witt",
+        email="f.witt@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
         skill_domains=[
-            SkillDomain.SEO,
-            SkillDomain.ANALYTICS,
-            SkillDomain.TECHNICAL,
+            SkillDomain.DESIGN,
+            SkillDomain.EMAIL_MARKETING,
+            SkillDomain.PAID_ADS,
         ],
-        skill_tags=["seo-onpage", "seo-offpage", "google-analytics", "search-console"],
-        is_coordinator=True,
-        is_active=True,
-        notes="Dach_und_Holz cluster coordinator",
+        skill_tags=["landing-page", "layout", "grafik", "sea", "mailing", "banner"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=False,
+        notes="Grafikdesignerin & Junior Marketing-Automation. Landing-Pages und Design-Assets.",
     ),
     Employee(
         employee_id="emp_005",
-        display_name="Eva Braun",
-        email="e.braun@example.com",
-        cluster_slugs=["Baugewerbe"],
-        business_unit_slugs=["bau_rohbau", "bau_ausbau", "bau_tiefbau"],
+        display_name="Ines Müller",
+        email="i.mueller@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
         skill_domains=[
-            SkillDomain.PROJECT_MANAGEMENT,
-            SkillDomain.STRATEGY,
-            SkillDomain.COPYWRITING,
+            SkillDomain.DESIGN,
+            SkillDomain.CONTENT_CREATION,
+            SkillDomain.EMAIL_MARKETING,
         ],
-        skill_tags=["kampagnenplanung", "briefing", "redaktionsplan", "texterstellung"],
-        is_coordinator=True,
-        is_active=True,
-        notes="Baugewerbe cluster coordinator",
+        skill_tags=["landing-page", "produktseite", "subscription", "event-grafik", "hubspot"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=False,
+        notes="Grafikdesignerin & Landing-Page-Creator. Pflegt Landing-Pages und Produktseiten.",
     ),
     Employee(
         employee_id="emp_006",
-        display_name="Felix Hoffmann",
-        email="f.hoffmann@example.com",
-        cluster_slugs=["Baugewerbe"],
-        business_unit_slugs=["bau_ausbau", "bau_malerarbeiten"],
+        display_name="Laura Piccolomo",
+        email="l.piccolomo@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
         skill_domains=[
-            SkillDomain.DESIGN,
-            SkillDomain.SOCIAL_MEDIA,
+            SkillDomain.SEO,
             SkillDomain.CONTENT_CREATION,
+            SkillDomain.COPYWRITING,
+            SkillDomain.STRATEGY,
         ],
-        skill_tags=["grafik", "instagram", "tiktok", "video", "reel"],
+        skill_tags=["seo", "keyword-recherche", "content-strategie", "custom-gpt", "ai-texte"],
+        ai_readiness=AIReadiness.EXPERIENCED,
         is_coordinator=False,
-        is_active=True,
+        notes="Senior SEO & Content-Strategist. Nutzt Custom-GPT für Textproduktion.",
     ),
     Employee(
         employee_id="emp_007",
-        display_name="Greta Fischer",
-        email="g.fischer@example.com",
+        display_name="Lina Weiß",
+        email="l.weiss@example.com",
         cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
-        business_unit_slugs=[],
         skill_domains=[
+            SkillDomain.DESIGN,
+            SkillDomain.COPYWRITING,
+        ],
+        skill_tags=["print", "logo", "e-mail-signatur", "messe-grafik", "qrewnet", "print-leitfaden"],
+        ai_readiness=AIReadiness.NOVICE,
+        is_coordinator=False,
+        notes="Grafikdesignerin Print-Design. AI-Novice — human_review_required bei AI-Tasks.",
+    ),
+    Employee(
+        employee_id="emp_008",
+        display_name="Sandra Hoppe",
+        email="s.hoppe@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
+            SkillDomain.DESIGN,
+            SkillDomain.TECHNICAL,
+            SkillDomain.CONTENT_CREATION,
             SkillDomain.STRATEGY,
-            SkillDomain.ANALYTICS,
+        ],
+        skill_tags=["ui-ux", "prompt-engineering", "ai-tools", "fotografie", "stock", "full-stack-design", "skript"],
+        ai_readiness=AIReadiness.PIONEER,
+        is_coordinator=False,
+        notes="Senior Full-Stack-Marketing-Designerin & AI-Pioneer. Bevorzugt für AI-intensive Design-Aufgaben.",
+    ),
+    Employee(
+        employee_id="emp_009",
+        display_name="André Köhler",
+        email="a.koehler@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
             SkillDomain.PROJECT_MANAGEMENT,
         ],
-        skill_tags=["jahresplanung", "reporting", "kpi", "budget", "koordination"],
+        skill_tags=["messe", "event", "tickets", "debriefing", "budget", "logistik"],
+        ai_readiness=AIReadiness.NOVICE,
         is_coordinator=False,
-        is_active=True,
-        notes="Cross-cluster strategist and analyst",
+        notes="Messe- & Eventmanager. AI-Novice — human_review_required bei AI-Tasks.",
+    ),
+    Employee(
+        employee_id="emp_010",
+        display_name="Christina Helms",
+        email="c.helms@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
+            SkillDomain.PROJECT_MANAGEMENT,
+        ],
+        skill_tags=["networking", "event", "speaker", "raumausstattung", "technik", "messe"],
+        ai_readiness=AIReadiness.NOVICE,
+        is_coordinator=False,
+        notes="Messe- & Eventmanagerin. AI-Novice — human_review_required bei AI-Tasks.",
+    ),
+    Employee(
+        employee_id="emp_011",
+        display_name="Madelin Grohmann",
+        email="m.grohmann@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
+            SkillDomain.SOCIAL_MEDIA,
+            SkillDomain.CONTENT_CREATION,
+            SkillDomain.EMAIL_MARKETING,
+        ],
+        skill_tags=["social-media", "instagram", "linkedin", "ugc", "messe-beiträge", "hubspot"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=False,
+        notes="Social-Media-Managerin & Content-Creator. Primäransprechpartnerin für Social-Media.",
+    ),
+    Employee(
+        employee_id="emp_012",
+        display_name="Janosch Niemeyer",
+        email="j.niemeyer@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
+            SkillDomain.TECHNICAL,
+            SkillDomain.CONTENT_CREATION,
+        ],
+        skill_tags=["wordpress", "plugin", "wpforms", "blog", "landing-page-template", "filter", "php"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=False,
+        notes="Webmaster & WordPress-Dev. Primäransprechpartner für WordPress-Aufgaben.",
+    ),
+    Employee(
+        employee_id="emp_013",
+        display_name="Susanne Arasin",
+        email="s.arasin@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
+            SkillDomain.CONTENT_CREATION,
+            SkillDomain.COPYWRITING,
+            SkillDomain.EMAIL_MARKETING,
+        ],
+        skill_tags=["intranet", "interne-kommunikation", "newsletter", "faq", "marketingseiten"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=False,
+        notes="Interne Kommunikation. Zuständig für Intranet, FAQs und interne Newsletters.",
+    ),
+    Employee(
+        employee_id="emp_014",
+        display_name="Philipp Ehring",
+        email="p.ehring@example.com",
+        cluster_slugs=["SHK+E", "Dach_und_Holz", "Baugewerbe"],
+        skill_domains=[
+            SkillDomain.PROJECT_MANAGEMENT,
+            SkillDomain.CONTENT_CREATION,
+            SkillDomain.PAID_ADS,
+        ],
+        skill_tags=["koordination", "bu-info", "namensänderung", "landing-page", "sea", "mailing"],
+        ai_readiness=AIReadiness.READY,
+        is_coordinator=True,
+        notes="Cross-Cluster-Koordinator. Querschnittsthemen über alle Business Units.",
     ),
 ]
 

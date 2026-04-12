@@ -10,6 +10,7 @@ from typing import Optional
 
 from .employees import EMPLOYEES, Employee, get_employee_by_id
 from .schemas import (
+    AIReadiness,
     AssigneeRecommendation,
     AssigneePlausibilityResult,
     PlausibilityVerdict,
@@ -32,15 +33,15 @@ _SKILL_KEYWORDS: dict[SkillDomain, list[str]] = {
     ],
     SkillDomain.SOCIAL_MEDIA: [
         "instagram", "facebook", "linkedin", "tiktok", "social media",
-        "social", "post", "reel", "story", "community",
+        "social", "post", "reel", "story", "community", "ugc",
     ],
     SkillDomain.EMAIL_MARKETING: [
         "newsletter", "email", "e-mail", "mailing", "kampagne", "mailchimp",
-        "klaviyo", "klickrate",
+        "klaviyo", "klickrate", "double opt in", "einladungs",
     ],
     SkillDomain.PAID_ADS: [
         "google ads", "facebook ads", "meta ads", "paid", "cpc", "cpm",
-        "performance marketing", "anzeige", "werbeanzeige",
+        "performance marketing", "anzeige", "werbeanzeige", "sea",
     ],
     SkillDomain.ANALYTICS: [
         "analytics", "tracking", "reporting", "auswertung", "kpi",
@@ -48,7 +49,8 @@ _SKILL_KEYWORDS: dict[SkillDomain, list[str]] = {
     ],
     SkillDomain.DESIGN: [
         "design", "grafik", "canva", "figma", "banner", "visual",
-        "bildbearbeitung", "infografik", "mockup",
+        "bildbearbeitung", "infografik", "mockup", "logo", "print",
+        "ui", "ux", "layout",
     ],
     SkillDomain.COPYWRITING: [
         "text", "copy", "texter", "headline", "slogan", "werbetexter",
@@ -56,15 +58,16 @@ _SKILL_KEYWORDS: dict[SkillDomain, list[str]] = {
     ],
     SkillDomain.PROJECT_MANAGEMENT: [
         "projektmanagement", "koordination", "briefing", "redaktionsplan",
-        "planung", "deadline", "zeitplan",
+        "planung", "deadline", "zeitplan", "messe", "event", "debriefing",
     ],
     SkillDomain.STRATEGY: [
         "strategie", "jahresplanung", "roadmap", "budget", "konzept",
-        "analyse", "marktanalyse",
+        "analyse", "marktanalyse", "content-strategie",
     ],
     SkillDomain.TECHNICAL: [
         "cms", "wordpress", "website", "webseite", "html", "css",
-        "entwicklung", "technisch", "integration",
+        "entwicklung", "technisch", "integration", "plugin", "webhook",
+        "hubspot", "automation", "wpforms",
     ],
 }
 
@@ -104,7 +107,6 @@ def _employee_skill_score(employee: Employee, required_domains: list[SkillDomain
 
     matched_domains = [d for d in required_domains if d in employee.skill_domains]
     domain_score = len(matched_domains) / len(required_domains)
-    matched_tags: list[str] = list(employee.skill_domains)  # type: ignore[arg-type]
     return domain_score, [d.value for d in matched_domains]
 
 
@@ -113,15 +115,18 @@ def recommend_assignees(
     description: str = "",
     cluster_slug: Optional[str] = None,
     top_n: int = 3,
+    min_ai_readiness: Optional[AIReadiness] = None,
 ) -> list[AssigneeRecommendation]:
     """
     Return up to top_n recommended employees ordered by skill match confidence.
-    Optionally filters by cluster_slug.
+    Optionally filters by cluster_slug and min_ai_readiness.
     """
     required_domains = resolve_skill_domain(title, description)
     candidates = [e for e in EMPLOYEES if e.is_active]
     if cluster_slug:
         candidates = [e for e in candidates if cluster_slug in e.cluster_slugs] or candidates
+    if min_ai_readiness:
+        candidates = [e for e in candidates if e.ai_readiness.meets(min_ai_readiness)] or candidates
 
     results: list[AssigneeRecommendation] = []
     for emp in candidates:
@@ -134,6 +139,7 @@ def recommend_assignees(
                     confidence=round(score, 3),
                     matched_skills=matched,
                     reason=f"Matches {len(matched)}/{len(required_domains)} required skill domains",
+                    ai_readiness=emp.ai_readiness.value,
                 )
             )
 
@@ -145,9 +151,11 @@ def evaluate_assignee_plausibility(
     employee_id: str,
     title: str,
     description: str = "",
+    required_ai_readiness: Optional[AIReadiness] = None,
 ) -> AssigneePlausibilityResult:
     """
     Evaluate whether the given employee is a plausible assignee for the task.
+    Also checks AI readiness if required_ai_readiness is specified.
     """
     emp = get_employee_by_id(employee_id)
     if emp is None:
@@ -158,31 +166,62 @@ def evaluate_assignee_plausibility(
 
     required_domains = resolve_skill_domain(title, description)
     if required_domains == [SkillDomain.UNKNOWN]:
+        # Still check AI readiness even if skill domain is unknown
+        human_review_required = False
+        ai_note = ""
+        if required_ai_readiness and not emp.ai_readiness.meets(required_ai_readiness):
+            human_review_required = True
+            ai_note = (
+                f" AI-Readiness unzureichend: {emp.ai_readiness.value} "
+                f"(benötigt: {required_ai_readiness.value}) → human_review_required."
+            )
+        if emp.ai_readiness == AIReadiness.NOVICE:
+            human_review_required = True
+            ai_note = f" {emp.display_name} ist AI-Novice → human_review_required."
         return AssigneePlausibilityResult(
             verdict=PlausibilityVerdict.UNKNOWN,
             employee_id=employee_id,
             display_name=emp.display_name,
-            explanation="Could not determine required skill domains from task text.",
+            ai_readiness=emp.ai_readiness.value,
+            human_review_required=human_review_required,
+            explanation=(
+                "Could not determine required skill domains from task text."
+                + ai_note
+            ),
         )
 
     matched = [d for d in required_domains if d in emp.skill_domains]
     missing = [d for d in required_domains if d not in emp.skill_domains]
     ratio = len(matched) / len(required_domains)
 
+    # Check AI readiness
+    human_review_required = False
+    ai_note = ""
+    if required_ai_readiness and not emp.ai_readiness.meets(required_ai_readiness):
+        human_review_required = True
+        ai_note = (
+            f" AI-Readiness unzureichend: {emp.ai_readiness.value} "
+            f"(benötigt: {required_ai_readiness.value}) → human_review_required."
+        )
+
+    if emp.ai_readiness == AIReadiness.NOVICE:
+        human_review_required = True
+        ai_note = f" {emp.display_name} ist AI-Novice → human_review_required."
+
     if ratio >= 0.6:
         verdict = PlausibilityVerdict.PLAUSIBLE
-        explanation = f"{emp.display_name} covers {len(matched)}/{len(required_domains)} required domains."
+        explanation = f"{emp.display_name} covers {len(matched)}/{len(required_domains)} required domains.{ai_note}"
     elif ratio >= 0.3:
         verdict = PlausibilityVerdict.QUESTIONABLE
         explanation = (
             f"{emp.display_name} partially matches ({len(matched)}/{len(required_domains)} domains). "
-            f"Missing: {', '.join(d.value for d in missing)}."
+            f"Missing: {', '.join(d.value for d in missing)}.{ai_note}"
         )
     else:
         verdict = PlausibilityVerdict.IMPLAUSIBLE
         explanation = (
             f"{emp.display_name} matches only {len(matched)}/{len(required_domains)} required domains. "
-            f"Missing: {', '.join(d.value for d in missing)}."
+            f"Missing: {', '.join(d.value for d in missing)}.{ai_note}"
         )
 
     return AssigneePlausibilityResult(
@@ -192,4 +231,7 @@ def evaluate_assignee_plausibility(
         matched_skills=[d.value for d in matched],
         missing_skills=[d.value for d in missing],
         explanation=explanation,
+        ai_readiness=emp.ai_readiness.value,
+        human_review_required=human_review_required,
     )
+

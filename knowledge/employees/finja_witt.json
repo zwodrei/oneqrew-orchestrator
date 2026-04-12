@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_004",
+  "name": "Finja Witt",
+  "role": "Grafikdesignerin & Junior Marketing-Automation",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Landing-Page-Korrekturen", "Layout-Guidelines", "SEA-Tasks", "Mailing-Tasks", "Grafik-Assets"],
+  "skills": ["Grafikdesign", "Landing-Pages", "SEA-Support", "Mailing-Design", "HubSpot-Junior"],
+  "channels": ["Design", "Landing-Pages", "Email", "SEA"],
+  "skill_domains": ["design", "email_marketing", "paid_ads"],
+  "notes": "Unterstützt Landing-Page-Korrekturen und Layout-Arbeiten. Kann einfache HubSpot-Tasks übernehmen.",
+  "examples": ["Layout-Korrektur Landing-Page SHK", "Grafik-Asset für Mailing", "Banner für SEA-Kampagne"]
+}

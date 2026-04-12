@@ -33,12 +33,47 @@ class SkillDomain(str, Enum):
     UNKNOWN = "unknown"
 
 
+class AIReadiness(str, Enum):
+    PIONEER = "AI-Pioneer"    # Level 4 — Prompt-Engineering, AI-Tools produktiv
+    EXPERIENCED = "AI-Erfahren"  # Level 3 — regelmäßige AI-Nutzung
+    READY = "AI-Bereit"      # Level 2 — gelegentliche AI-Nutzung
+    NOVICE = "AI-Novice"     # Level 1 — wenig/keine AI-Erfahrung
+
+    @property
+    def level(self) -> int:
+        return {
+            AIReadiness.PIONEER: 4,
+            AIReadiness.EXPERIENCED: 3,
+            AIReadiness.READY: 2,
+            AIReadiness.NOVICE: 1,
+        }[self]
+
+    def meets(self, required: "AIReadiness") -> bool:
+        """Returns True if this readiness level meets or exceeds the required level."""
+        return self.level >= required.level
+
+
+class TaskCategory(str, Enum):
+    WORDPRESS = "WordPress/Webmaster"
+    HUBSPOT = "HubSpot/Marketing-Automation"
+    PRINT_GRAPHIC = "Print/Graphic"
+    SOCIAL_MEDIA = "Social-Media"
+    EVENT_MESSE = "Event/Messe"
+    SEO_CONTENT = "SEO/Content-Strategie"
+    INTERNAL_COMM = "Interne Kommunikation"
+    COORDINATION = "Koordination/Projektmanagement"
+    LANDING_PAGES = "Landing-Pages/Design"
+    CAMPAIGN_EMAIL = "Kampagne/Email-Marketing"
+    OTHER = "Other"
+
+
 class AssigneeRecommendation(BaseModel):
     employee_id: str
     display_name: str
     confidence: float = Field(ge=0.0, le=1.0)
     matched_skills: list[str] = Field(default_factory=list)
     reason: str = ""
+    ai_readiness: Optional[str] = None
 
 
 class PlausibilityVerdict(str, Enum):
@@ -55,6 +90,8 @@ class AssigneePlausibilityResult(BaseModel):
     matched_skills: list[str] = Field(default_factory=list)
     missing_skills: list[str] = Field(default_factory=list)
     explanation: str = ""
+    ai_readiness: Optional[str] = None
+    human_review_required: bool = False
 
 
 class CompletenessFlag(BaseModel):

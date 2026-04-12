@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_008",
+  "name": "Sandra Hoppe",
+  "role": "Senior Full-Stack-Marketing-Designerin, UI/UX & AI-Pioneer",
+  "ai_readiness": "AI-Pioneer",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Skript-Updates", "Fotografie/Stock-Organisation", "UI-Fehlerbehebung", "Prompt-Engineering", "AI-Tools"],
+  "skills": ["UI/UX", "AI-Tools", "Prompt-Engineering", "Full-Stack-Design", "Stock-Fotografie", "Web-Design"],
+  "channels": ["Design", "Web", "AI-Tools", "UI/UX"],
+  "skill_domains": ["design", "technical", "content_creation", "strategy"],
+  "notes": "AI-Pioneer — bevorzugt zuweisen bei AI-intensiven Design- und UI/UX-Aufgaben. Nutzt Prompt-Engineering produktiv.",
+  "examples": ["UI-Fix Landing-Page", "Prompt-Engineering für Grafik-Assets", "Stock-Foto-Bibliothek Update"]
+}

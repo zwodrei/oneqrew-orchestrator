@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_009",
+  "name": "André Köhler",
+  "role": "Messe- & Eventmanager",
+  "ai_readiness": "AI-Novice",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Tickets", "Debriefings", "Budgets", "Veranstaltungslogistik"],
+  "skills": ["Eventmanagement", "Messeorganisation", "Budgetplanung", "Logistik"],
+  "channels": ["Event", "Messe"],
+  "skill_domains": ["project_management"],
+  "notes": "Spezialist für Messe- und Eventlogistik. AI-Novice — bei AI-intensiven Aufgaben human_review_required setzen.",
+  "examples": ["Messeplanung ISH", "Debriefing nach Event", "Budget-Tracking Messen Q2"]
+}

@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_007",
+  "name": "Lina Weiß",
+  "role": "Grafikdesignerin Print-Design",
+  "ai_readiness": "AI-Novice",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Logos", "Print-Leitfäden", "E-Mail-Signaturen", "Messe-Grafiken", "QrewNet-Beiträge"],
+  "skills": ["Print-Design", "Logo-Design", "Messe-Grafiken", "Corporate-Design", "E-Mail-Signaturen"],
+  "channels": ["Print", "Design", "Intranet"],
+  "skill_domains": ["design", "copywriting"],
+  "notes": "Spezialistin für Print-Design und Corporate Identity. AI-Novice — bei AI-intensiven Aufgaben human_review_required setzen.",
+  "examples": ["Logo-Update BU SHK", "Messe-Grafiken ISH 2025", "Print-Leitfaden Holzbau"]
+}

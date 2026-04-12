@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_012",
+  "name": "Janosch Niemeyer",
+  "role": "Webmaster & WordPress-Dev",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["WordPress-Updates", "Plugins", "Kontaktformulare", "Filterfunktionen", "Blog-Anpassungen", "Landing-Page-Templates"],
+  "skills": ["WordPress", "Web-Development", "Plugins", "PHP", "CSS", "Landing-Pages", "Blog"],
+  "channels": ["WordPress", "Web", "Landing-Pages"],
+  "skill_domains": ["technical", "content_creation"],
+  "notes": "Primäransprechpartner für alle WordPress- und Web-Aufgaben. Baut Landing-Page-Templates und pflegt Plugins.",
+  "examples": ["WordPress-Plugin Update", "Kontaktformular Website", "Landing-Page-Template SHK"]
+}

@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_001",
+  "name": "Maren Hoyer",
+  "role": "Marketing-Business-Partnerin SHK+E",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "SHK+E",
+  "primary_tasks": ["Kampagnen", "Einladungen", "Messe-Partnerschaften", "Landing-Pages", "Kampagnen-Koordination"],
+  "skills": ["Kampagnenmanagement", "Event-Koordination", "Landing-Pages", "Partnermarketing"],
+  "channels": ["Email", "Landing-Pages", "Event"],
+  "skill_domains": ["email_marketing", "content_creation", "project_management"],
+  "notes": "Hauptansprechpartnerin für den SHK+E-Cluster. Koordiniert Kampagnen, Messe-Einladungen und Landing-Page-Projekte.",
+  "examples": ["Kampagne Wärmepumpe Q2", "Messeeinladung SHK Essen", "Landing-Page Heizungscheck"]
+}

@@ -50,17 +50,24 @@ assignment_task:
     2. Return the full AssignmentAnalysis as structured JSON.
     3. Include the plausibility verdict for the current assignee.
     4. Include up to 3 ranked recommendations with employee_id, display_name,
-       confidence, matched_skills, and reason.
+       confidence, matched_skills, reason, and ai_readiness.
     5. Set needs_reassignment and reassignment_reason accurately.
+    6. Always include the new AI-readiness fields in the output.
 
     Your output must include:
     - current_assignee_verdict (object or null)
     - recommendations (list, max 3)
     - needs_reassignment (bool)
     - reassignment_reason (string)
+    - task_category (string — e.g. "HubSpot/Marketing-Automation")
+    - ai_readiness_required (string — minimum AI-readiness for the task)
+    - assignee_readiness (string or null — AI-readiness of the current assignee)
+    - recommended_assignee_ai_level (string or null — AI-readiness of top recommendation)
+    - assigned_by_skill_matrix (bool — true when no assignee was set and skill matrix was used)
   expected_output: >
     A JSON object with keys: current_assignee_verdict, recommendations,
-    needs_reassignment, reassignment_reason. No prose.
+    needs_reassignment, reassignment_reason, task_category, ai_readiness_required,
+    assignee_readiness, recommended_assignee_ai_level, assigned_by_skill_matrix. No prose.
   agent: assignment_analyst
   context:
     - routing_task
@@ -126,6 +133,11 @@ synthesis_task:
         "assignment_confidence": 0.0,
         "needs_reassignment": false,
         "reassignment_reason": "...",
+        "task_category": "...",
+        "ai_readiness_required": "AI-Bereit|AI-Erfahren|AI-Pioneer|AI-Novice",
+        "assignee_readiness": "...",
+        "recommended_assignee_ai_level": "...",
+        "assigned_by_skill_matrix": false,
         "top_recommendation": {{
           "employee_id": "...",
           "display_name": "...",

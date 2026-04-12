@@ -18,6 +18,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import shutil
 import subprocess
 from typing import Any, Optional
 
@@ -68,9 +69,17 @@ class MCPClient:
     def _default_server_command(self) -> list[str]:
         """
         Default command to start the Asana MCP server over stdio.
-        Assumes @asana/mcp is available via npx or a local install.
+        Resolves npx from PATH (or common locations on Railway/Nix).
         """
-        cmd = ["npx", "-y", "@asana/mcp"]
+        npx_path = shutil.which("npx")
+        if npx_path is None:
+            for candidate in ["/usr/local/bin/npx", "/usr/bin/npx", "/.nix-profile/bin/npx"]:
+                if os.path.isfile(candidate):
+                    npx_path = candidate
+                    break
+        if npx_path is None:
+            npx_path = "npx"
+        cmd = [npx_path, "-y", "@asana/mcp"]
         if self._pat:
             cmd += ["--token", self._pat]
         return cmd
@@ -87,14 +96,26 @@ class MCPClient:
         if self._pat:
             env["ASANA_TOKEN"] = self._pat
 
-        self._process = subprocess.Popen(
-            self._server_command,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            env=env,
-            text=True,
-        )
+        try:
+            self._process = subprocess.Popen(
+                self._server_command,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                env=env,
+                text=True,
+            )
+        except FileNotFoundError:
+            logger.error(
+                "MCP server command not found: %s. "
+                "Ensure Node.js/npx is installed (required for Asana MCP). "
+                "On Railway, add a Node.js buildpack or set DRY_RUN=true.",
+                self._server_command[0],
+            )
+            raise RuntimeError(
+                f"Cannot start Asana MCP server: '{self._server_command[0]}' not found. "
+                f"Install Node.js or set DRY_RUN=true."
+            ) from None
         logger.info("Asana MCP server started (pid=%s)", self._process.pid)
 
     def disconnect(self) -> None:

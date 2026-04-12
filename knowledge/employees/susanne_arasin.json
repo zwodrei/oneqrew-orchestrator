@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_013",
+  "name": "Susanne Arasin",
+  "role": "Interne Kommunikation",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Intranet-News", "Newsletters", "FAQs", "Marketingseiten"],
+  "skills": ["Interne Kommunikation", "Newsletter", "Intranet", "FAQ-Management", "Redaktion"],
+  "channels": ["Intranet", "Email", "Internal"],
+  "skill_domains": ["content_creation", "copywriting", "email_marketing"],
+  "notes": "Zuständig für interne Kommunikation, Intranet und interne Newsletters. Nicht für externe Kampagnen geeignet.",
+  "examples": ["Intranet-News Q2", "Interner Newsletter Monatsbericht", "FAQ Marketing-Portal"]
+}

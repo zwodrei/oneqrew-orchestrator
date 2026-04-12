@@ -1,0 +1,192 @@
+{
+  "version": "1.0",
+  "description": "Skill-Matrix des Marketing-Teams. Schlüssel = Aufgabenfeld. Werte = primary, secondary, coordinator sortiert nach Eignung.",
+  "task_categories": {
+    "WordPress/Webmaster": {
+      "primary": ["Janosch Niemeyer"],
+      "secondary": ["Sandra Hoppe"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_012"],
+        "secondary": ["emp_008"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Janosch Niemeyer": "AI-Bereit",
+        "Sandra Hoppe": "AI-Pioneer",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "HubSpot/Marketing-Automation": {
+      "primary": ["Matteo Diehl"],
+      "secondary": ["Finja Witt", "Ines Müller", "Madelin Grohmann"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_003"],
+        "secondary": ["emp_004", "emp_005", "emp_011"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Matteo Diehl": "AI-Erfahren",
+        "Finja Witt": "AI-Bereit",
+        "Ines Müller": "AI-Bereit",
+        "Madelin Grohmann": "AI-Bereit",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "Print/Graphic": {
+      "primary": ["Lina Weiß"],
+      "secondary": ["Sandra Hoppe", "Finja Witt", "Ines Müller"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_007"],
+        "secondary": ["emp_008", "emp_004", "emp_005"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Lina Weiß": "AI-Novice",
+        "Sandra Hoppe": "AI-Pioneer",
+        "Finja Witt": "AI-Bereit",
+        "Ines Müller": "AI-Bereit",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "Social-Media": {
+      "primary": ["Madelin Grohmann"],
+      "secondary": ["Sandra Hoppe", "Finja Witt"],
+      "coordinator": ["Maren Hoyer", "Sara Niklassik"],
+      "employee_ids": {
+        "primary": ["emp_011"],
+        "secondary": ["emp_008", "emp_004"],
+        "coordinator": ["emp_001", "emp_002"]
+      },
+      "ai_readiness_map": {
+        "Madelin Grohmann": "AI-Bereit",
+        "Sandra Hoppe": "AI-Pioneer",
+        "Finja Witt": "AI-Bereit",
+        "Maren Hoyer": "AI-Bereit",
+        "Sara Niklassik": "AI-Bereit"
+      }
+    },
+    "Event/Messe": {
+      "primary": ["André Köhler", "Christina Helms"],
+      "secondary": ["Maren Hoyer", "Sara Niklassik", "Madelin Grohmann"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_009", "emp_010"],
+        "secondary": ["emp_001", "emp_002", "emp_011"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "André Köhler": "AI-Novice",
+        "Christina Helms": "AI-Novice",
+        "Maren Hoyer": "AI-Bereit",
+        "Sara Niklassik": "AI-Bereit",
+        "Madelin Grohmann": "AI-Bereit",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "SEO/Content-Strategie": {
+      "primary": ["Laura Piccolomo"],
+      "secondary": ["Janosch Niemeyer", "Sandra Hoppe"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_006"],
+        "secondary": ["emp_012", "emp_008"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Laura Piccolomo": "AI-Erfahren",
+        "Janosch Niemeyer": "AI-Bereit",
+        "Sandra Hoppe": "AI-Pioneer",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "Interne Kommunikation": {
+      "primary": ["Susanne Arasin"],
+      "secondary": ["Philipp Ehring"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_013"],
+        "secondary": ["emp_014"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Susanne Arasin": "AI-Bereit",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "Koordination/Projektmanagement": {
+      "primary": ["Philipp Ehring"],
+      "secondary": ["Maren Hoyer", "Sara Niklassik"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_014"],
+        "secondary": ["emp_001", "emp_002"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Philipp Ehring": "AI-Bereit",
+        "Maren Hoyer": "AI-Bereit",
+        "Sara Niklassik": "AI-Bereit"
+      }
+    },
+    "Landing-Pages/Design": {
+      "primary": ["Ines Müller", "Finja Witt"],
+      "secondary": ["Sandra Hoppe", "Janosch Niemeyer"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_005", "emp_004"],
+        "secondary": ["emp_008", "emp_012"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Ines Müller": "AI-Bereit",
+        "Finja Witt": "AI-Bereit",
+        "Sandra Hoppe": "AI-Pioneer",
+        "Janosch Niemeyer": "AI-Bereit",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    },
+    "Kampagne/Email-Marketing": {
+      "primary": ["Maren Hoyer", "Sara Niklassik"],
+      "secondary": ["Matteo Diehl", "Finja Witt", "Ines Müller"],
+      "coordinator": ["Philipp Ehring"],
+      "employee_ids": {
+        "primary": ["emp_001", "emp_002"],
+        "secondary": ["emp_003", "emp_004", "emp_005"],
+        "coordinator": ["emp_014"]
+      },
+      "ai_readiness_map": {
+        "Maren Hoyer": "AI-Bereit",
+        "Sara Niklassik": "AI-Bereit",
+        "Matteo Diehl": "AI-Erfahren",
+        "Finja Witt": "AI-Bereit",
+        "Ines Müller": "AI-Bereit",
+        "Philipp Ehring": "AI-Bereit"
+      }
+    }
+  },
+  "ai_readiness_levels": {
+    "AI-Pioneer": {
+      "level": 4,
+      "description": "Nutzt Prompt-Engineering und AI-Tools produktiv. Kann AI-intensive Aufgaben vollständig selbstständig bearbeiten.",
+      "employees": ["Sandra Hoppe"]
+    },
+    "AI-Erfahren": {
+      "level": 3,
+      "description": "Hat Erfahrung mit AI-Tools und nutzt sie regelmäßig. Kann AI-gestützte Workflows eigenständig aufsetzen.",
+      "employees": ["Matteo Diehl", "Laura Piccolomo"]
+    },
+    "AI-Bereit": {
+      "level": 2,
+      "description": "Offen für AI-Tools, nutzt sie gelegentlich. Kann AI-Unterstützung bei Aufgaben einsetzen.",
+      "employees": ["Maren Hoyer", "Sara Niklassik", "Finja Witt", "Ines Müller", "Madelin Grohmann", "Janosch Niemeyer", "Susanne Arasin", "Philipp Ehring"]
+    },
+    "AI-Novice": {
+      "level": 1,
+      "description": "Wenig oder keine Erfahrung mit AI-Tools. Bei AI-intensiven Aufgaben human_review_required setzen.",
+      "employees": ["Lina Weiß", "André Köhler", "Christina Helms"]
+    }
+  }
+}

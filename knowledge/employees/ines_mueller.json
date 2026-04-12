@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_005",
+  "name": "Ines Müller",
+  "role": "Grafikdesignerin & Landing-Page-/Content-Creator",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Landing-Pages", "Produktseiten", "Subscription-Sites", "Event-Grafiken", "HubSpot-Tasks"],
+  "skills": ["Landing-Pages", "Content-Design", "Produktseiten", "Event-Grafiken", "HubSpot-Grundlagen"],
+  "channels": ["Design", "Landing-Pages", "HubSpot", "Event"],
+  "skill_domains": ["design", "content_creation", "email_marketing"],
+  "notes": "Erstellt und pflegt Landing-Pages und Produktseiten. Unterstützt auch bei Event-Grafiken.",
+  "examples": ["Produktseite Wärmepumpe", "Event-Grafik Messe", "Subscription-Site Update"]
+}

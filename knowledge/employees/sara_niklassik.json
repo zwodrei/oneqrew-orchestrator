@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_002",
+  "name": "Sara Niklassik",
+  "role": "Marketing-Business-Partnerin Dach & Holz",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "Dach_und_Holz",
+  "primary_tasks": ["Referenzen", "Schulungen", "Termine", "Partnerschaften", "Messe-Organisation"],
+  "skills": ["Partnermarketing", "Eventorganisation", "Schulungskoordination", "Referenzmanagement"],
+  "channels": ["Email", "Event", "Landing-Pages"],
+  "skill_domains": ["project_management", "email_marketing", "content_creation"],
+  "notes": "Hauptansprechpartnerin für den Dach-&-Holz-Cluster. Koordiniert Schulungen, Partnerschaften und Messeauftritte.",
+  "examples": ["Referenzstory Holzbau", "Schulungsprogramm Dachdecker Q3", "Partnerschaft Zimmerei-Verband"]
+}

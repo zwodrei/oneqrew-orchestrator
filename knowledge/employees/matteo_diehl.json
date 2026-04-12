@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_003",
+  "name": "Matteo Diehl",
+  "role": "HubSpot-Spezialist Marketing-Automation",
+  "ai_readiness": "AI-Erfahren",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Kontaktformulare", "Webhooks in HubSpot", "Double-Opt-In-Mails", "Redirects", "Automatisierungen"],
+  "skills": ["HubSpot", "Marketing-Automation", "Webhooks", "Email-Automation", "CRM"],
+  "channels": ["HubSpot", "Email", "CRM"],
+  "skill_domains": ["email_marketing", "technical", "analytics"],
+  "notes": "Primärer Ansprechpartner für alle HubSpot-Aufgaben. Baut Automatisierungen, Formulare und Webhooks.",
+  "examples": ["Double-Opt-In Flow HubSpot", "Kontaktformular Webseite", "Redirect Landing-Page nach Kampagne"]
+}

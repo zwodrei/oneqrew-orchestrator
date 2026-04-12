@@ -1,0 +1,13 @@
+{
+  "employee_id": "emp_011",
+  "name": "Madelin Grohmann",
+  "role": "Social-Media-Managerin & Content-Creator",
+  "ai_readiness": "AI-Bereit",
+  "cluster": "cross-cluster",
+  "primary_tasks": ["Social-Media-Posts", "UGC-Experimente", "Messe-Beiträge", "HubSpot-Tasks", "Event-Content"],
+  "skills": ["Social-Media", "Content-Creation", "UGC", "Community-Management", "HubSpot-Junior"],
+  "channels": ["Social-Media", "Instagram", "LinkedIn", "HubSpot", "Event"],
+  "skill_domains": ["social_media", "content_creation", "email_marketing"],
+  "notes": "Primäransprechpartnerin für Social-Media-Aufgaben. Experimentiert mit UGC-Content.",
+  "examples": ["Instagram-Post Wärmepumpe", "Messe-Beitrag ISH LinkedIn", "UGC-Experiment Dach-Cluster"]
+}
