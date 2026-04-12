@@ -4,7 +4,7 @@ routing_task:
     using the route_ticket domain tool.
 
     Ticket data:
-    {ticket_json}
+    {ticket_yaml}
 
     IMPORTANT — Before calling the route_ticket tool:
     1. Extract relevant keywords from the ticket title and notes (e.g. "Wärmepumpe",
@@ -40,7 +40,7 @@ assignment_task:
     using the analyse_assignment domain tool.
 
     Ticket data:
-    {ticket_json}
+    {ticket_yaml}
 
     Known routing result (use cluster_slug for scoped recommendations):
     {routing_result_json}
@@ -78,7 +78,7 @@ completeness_task:
     check_completeness domain tool.
 
     Ticket data:
-    {ticket_json}
+    {ticket_yaml}
 
     Steps:
     1. Call the check_completeness tool with the full ticket dict.
@@ -109,7 +109,7 @@ synthesis_task:
     one final structured decision object for this Asana ticket.
 
     Ticket data:
-    {ticket_json}
+    {ticket_yaml}
 
     Routing result: (from routing_task output)
     Assignment analysis: (from assignment_task output)

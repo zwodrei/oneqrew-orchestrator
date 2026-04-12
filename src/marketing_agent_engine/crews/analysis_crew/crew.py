@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import yaml
 from pathlib import Path
 from typing import Any
 
@@ -176,11 +177,11 @@ class AnalysisCrew:
         Falls back to raw string if JSON parse fails.
         """
         target = ticket or self._ticket
-        ticket_json = json.dumps(target)
+        ticket_yaml = yaml.dump(target, allow_unicode=True, default_flow_style=False)
         routing_json = json.dumps({})  # populated by context chain at runtime
 
         inputs = {
-            "ticket_json": ticket_json,
+            "ticket_yaml": ticket_yaml,
             "routing_result_json": routing_json,
             "dry_run": str(settings.dry_run).lower(),
             "model": settings.model,
