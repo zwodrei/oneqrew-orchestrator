@@ -7,11 +7,12 @@ routing_task:
     {ticket_yaml}
 
     IMPORTANT — Before calling the route_ticket tool:
-    1. Read the entire ticket (title, notes, html_notes) and write a short 2-sentence summary
-       explaining what this ticket is trying to achieve.
-    2. Semantically identify the likely domain/cluster based on your understanding of the
-       German trades (Handwerk) and marketing domains. Do not just look for hardcoded keywords;
-       understand the context. For example:
+    1. Read the entire ticket (title, notes, html_notes) and ALL custom fields, tags, and project names.
+       Write a short 2-sentence summary explaining what this ticket is trying to achieve.
+    2. Semantically identify the likely domain/cluster and business unit. Do not just look for hardcoded keywords;
+       understand the context. Crawl all values of all ticket parameters to check if a specific Business Unit
+       (e.g. "M-SOFT", "Pinncalc", "blue:solution", etc.) or Cluster is mentioned anywhere in the text, tags, or custom fields.
+       For example:
        - Replacing a boiler or installing a heat pump belongs to "SHK+E" (Sanitär, Heizung, Klima, Energie).
        - Timber construction or roof repairs belongs to "Dach_und_Holz".
        - Foundation work or masonry belongs to "Baugewerbe".

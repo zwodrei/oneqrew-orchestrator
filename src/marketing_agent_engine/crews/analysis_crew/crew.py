@@ -177,8 +177,12 @@ class AnalysisCrew:
         Falls back to raw string if JSON parse fails.
         """
         target = ticket or self._ticket
+        
+        # Instantiate the crew so we can access its agents
+        c = self.crew()
+        
         # Update tools with the actual ticket data before kickoff
-        for agent in self.agents:
+        for agent in c.agents:
             if hasattr(agent, 'tools'):
                 for tool in agent.tools:
                     if hasattr(tool, 'ticket'):
@@ -198,7 +202,7 @@ class AnalysisCrew:
             "model": settings.model,
         }
 
-        raw_result = self.crew().kickoff(inputs=inputs)
+        raw_result = c.kickoff(inputs=inputs)
         raw = str(raw_result)
 
         try:
