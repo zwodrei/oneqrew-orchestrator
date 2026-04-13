@@ -18,7 +18,7 @@ routing_task:
 
     Steps:
     1. Analyze the ticket title and notes for domain-specific keywords.
-    2. Call the route_ticket tool with the full ticket JSON (includes title and notes).
+    2. Call the route_ticket tool with the full ticket YAML (includes title and notes).
     3. Return the full RoutingResult as structured JSON.
     4. Do NOT guess. Do NOT add interpretation. Report exactly what the tool returns.
     5. If cluster is "unbekannt", report that honestly — do not try to force a cluster.
