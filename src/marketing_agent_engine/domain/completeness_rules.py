@@ -33,20 +33,24 @@ def check_completeness(ticket: dict[str, Any]) -> CompletenessResult:
 
     # 1. Title present and meaningful
     name: str = ticket.get("name", "") or ""
+    title_is_valid = len(name.strip()) >= _MIN_TITLE_LEN
     flags.append(_flag(
         "title_present",
-        len(name.strip()) >= _MIN_TITLE_LEN,
+        title_is_valid,
         value=name.strip() or None,
-        note="Title must be at least 10 characters." if len(name.strip()) < _MIN_TITLE_LEN else "",
+        note="Title must be at least 10 characters." if not title_is_valid else "",
     ))
 
-    # 2. Description / notes present
+    # 2. Description / notes present. If html_notes is present, check that instead.
     notes: str = ticket.get("notes", "") or ""
+    html_notes: str = ticket.get("html_notes", "") or ""
+    desc_content = html_notes if html_notes else notes
+    desc_is_valid = len(desc_content.strip()) >= _MIN_DESCRIPTION_LEN
     flags.append(_flag(
         "description_present",
-        len(notes.strip()) >= _MIN_DESCRIPTION_LEN,
-        value=bool(notes.strip()),
-        note="Notes field should have at least 30 characters." if len(notes.strip()) < _MIN_DESCRIPTION_LEN else "",
+        desc_is_valid,
+        value=bool(desc_content.strip()),
+        note="Notes/Description field should have at least 30 characters." if not desc_is_valid else "",
     ))
 
     # 3. Due date set

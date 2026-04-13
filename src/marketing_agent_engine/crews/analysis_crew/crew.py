@@ -14,9 +14,9 @@ from crewai.agents.agent_builder.base_agent import BaseAgent
 from marketing_agent_engine.config.llm import get_default_llm
 from marketing_agent_engine.config.settings import settings
 from .domain_tools import (
-    analyse_assignment_tool,
-    check_completeness_tool,
-    route_ticket_tool,
+    AnalyseAssignmentTool,
+    CheckCompletenessTool,
+    RouteTicketTool,
 )
 
 # ---------------------------------------------------------------------------
@@ -93,7 +93,7 @@ class AnalysisCrew:
         return Agent(
             config=self.agents_config["routing_analyst"],  # type: ignore[index]
             llm=get_default_llm(),
-            tools=[route_ticket_tool],
+            tools=[RouteTicketTool(ticket=self._ticket)],
             verbose=True,
         )
 
@@ -102,7 +102,7 @@ class AnalysisCrew:
         return Agent(
             config=self.agents_config["assignment_analyst"],  # type: ignore[index]
             llm=get_default_llm(),
-            tools=[analyse_assignment_tool],
+            tools=[AnalyseAssignmentTool(ticket=self._ticket, dry_run=settings.dry_run)],
             verbose=True,
         )
 
@@ -111,7 +111,7 @@ class AnalysisCrew:
         return Agent(
             config=self.agents_config["completeness_analyst"],  # type: ignore[index]
             llm=get_default_llm(),
-            tools=[check_completeness_tool],
+            tools=[CheckCompletenessTool(ticket=self._ticket)],
             verbose=True,
         )
 

@@ -7,21 +7,23 @@ routing_task:
     {ticket_yaml}
 
     IMPORTANT — Before calling the route_ticket tool:
-    1. Extract relevant keywords from the ticket title and notes (e.g. "Wärmepumpe",
-       "Newsletter", "Dach", "SHK", "Bau", "Solar", "Holz").
-    2. Identify the likely domain/cluster based on these keywords:
-       - SHK+E: keywords like "Wärmepumpe", "Heizung", "Sanitär", "Klima", "Energie"
-       - Dach_und_Holz: keywords like "Dach", "Holz", "Zimmerei", "Bedachung"
-       - Baugewerbe: keywords like "Bau", "Baustelle", "Architekt", "Planung"
-    3. Use these extracted keywords and domain hints as context when calling the tool.
+    1. Read the entire ticket (title, notes, html_notes) and write a short 2-sentence summary
+       explaining what this ticket is trying to achieve.
+    2. Semantically identify the likely domain/cluster based on your understanding of the
+       German trades (Handwerk) and marketing domains. Do not just look for hardcoded keywords;
+       understand the context. For example:
+       - Replacing a boiler or installing a heat pump belongs to "SHK+E" (Sanitär, Heizung, Klima, Energie).
+       - Timber construction or roof repairs belongs to "Dach_und_Holz".
+       - Foundation work or masonry belongs to "Baugewerbe".
+    3. Use your semantic understanding as context when calling the tool.
     4. The tool will use both keyword matching and project GID to determine routing.
 
     Steps:
-    1. Analyze the ticket title and notes for domain-specific keywords.
-    2. Call the route_ticket tool with the full ticket YAML (includes title and notes).
-    3. Return the full RoutingResult as structured JSON.
-    4. Do NOT guess. Do NOT add interpretation. Report exactly what the tool returns.
-    5. If cluster is "unbekannt", report that honestly — do not try to force a cluster.
+    1. Write your Chain-of-Thought analysis of the ticket's domain.
+    2. Call the route_ticket tool with no arguments to get the structural routing result.
+    3. Evaluate if the tool's output matches your semantic understanding. If the tool says "unbekannt"
+       but you are certain it is "SHK+E", you may override the cluster in your final JSON output.
+    4. Return the full RoutingResult as structured JSON.
 
     Your output must include:
     - cluster (string)
@@ -30,8 +32,8 @@ routing_task:
     - confidence (float)
     - resolution_path (list of strings)
   expected_output: >
-    A JSON object with keys: cluster, business_unit, cluster_coordinator_id,
-    confidence, resolution_path. No prose. No extra commentary.
+    First, your 2-sentence semantic analysis. Then, a JSON object with keys: cluster, business_unit,
+    cluster_coordinator_id, confidence, resolution_path.
   agent: routing_analyst
 
 assignment_task:
@@ -46,13 +48,16 @@ assignment_task:
     {routing_result_json}
 
     Steps:
-    1. Call the analyse_assignment tool with the ticket dict and dry_run={dry_run}.
-    2. Return the full AssignmentAnalysis as structured JSON.
-    3. Include the plausibility verdict for the current assignee.
-    4. Include up to 3 ranked recommendations with employee_id, display_name,
+    1. Write a 2-sentence analysis explaining what specific skills are actually required
+       to complete the work described in the ticket text.
+    2. Call the analyse_assignment tool with no arguments to get the assignment analysis.
+    3. Compare the tool's structural recommendations with your semantic skill analysis.
+    4. Return the full AssignmentAnalysis as structured JSON.
+    5. Include the plausibility verdict for the current assignee.
+    6. Include up to 3 ranked recommendations with employee_id, display_name,
        confidence, matched_skills, reason, and ai_readiness.
-    5. Set needs_reassignment and reassignment_reason accurately.
-    6. Always include the new AI-readiness fields in the output.
+    7. Set needs_reassignment and reassignment_reason accurately.
+    8. Always include the new AI-readiness fields in the output.
 
     Your output must include:
     - current_assignee_verdict (object or null)
@@ -65,40 +70,47 @@ assignment_task:
     - recommended_assignee_ai_level (string or null — AI-readiness of top recommendation)
     - assigned_by_skill_matrix (bool — true when no assignee was set and skill matrix was used)
   expected_output: >
-    A JSON object with keys: current_assignee_verdict, recommendations,
+    First, your 2-sentence skill analysis. Then, a JSON object with keys: current_assignee_verdict, recommendations,
     needs_reassignment, reassignment_reason, task_category, ai_readiness_required,
-    assignee_readiness, recommended_assignee_ai_level, assigned_by_skill_matrix. No prose.
+    assignee_readiness, recommended_assignee_ai_level, assigned_by_skill_matrix.
   agent: assignment_analyst
   context:
     - routing_task
 
 completeness_task:
   description: >
-    Evaluate the completeness of the following Asana ticket using the
-    check_completeness domain tool.
+    Evaluate the completeness of the following Asana ticket using a Two-Pass approach.
 
     Ticket data:
     {ticket_yaml}
 
     Steps:
-    1. Call the check_completeness tool with the full ticket dict.
-    2. Return the CompletenessResult as structured JSON.
-    3. List every criterion that did NOT pass under "missing".
-    4. List all warning messages under "warnings".
-    5. Categorize each missing item by responsible party:
+    1. Pass 1 (Semantic): Read the entire ticket title, notes/html_notes, and any included
+       comments/stories. Write a short analysis of whether the ticket contains enough
+       context to be actionable. Is there a clear goal? Is there a deadline mentioned in the text
+       even if the formal due_date field is empty?
+    2. Pass 2 (Structural): Call the check_completeness tool with no arguments to evaluate
+       the ticket against the rigid python rules.
+    3. Override (Crucial): If the tool flags a field as missing (e.g. "due_date_set": false, or
+       "description_present": false because the text is too short), but your semantic analysis
+       proves the information IS present in the text or comments, you MUST override that flag.
+       Mark it as passed, increase the score, and remove it from the "missing" list.
+    4. List every criterion that did NOT pass under "missing".
+    5. List all warning messages under "warnings".
+    6. Categorize each missing item by responsible party:
        - "requester" — the person who created the ticket must supply this
        - "coordinator" — the cluster coordinator must fill this in
        - "system" — should be auto-populated by Asana (e.g. workspace, permalink)
 
     Your output must include:
-    - score (float, 0–1)
+    - score (float, 0–1) — recalculated if you overrode the tool
     - passed (bool)
     - missing (list of strings)
     - warnings (list of strings)
     - missing_by_owner (object: {requester: [], coordinator: [], system: []})
   expected_output: >
-    A JSON object with keys: score, passed, missing, warnings, missing_by_owner.
-    No prose.
+    First, your Two-Pass semantic analysis. Then, a JSON object with keys: score, passed,
+    missing, warnings, missing_by_owner.
   agent: completeness_analyst
   context:
     - routing_task
