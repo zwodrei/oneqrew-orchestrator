@@ -177,7 +177,11 @@ class AnalysisCrew:
         Falls back to raw string if JSON parse fails.
         """
         target = ticket or self._ticket
-        ticket_yaml = yaml.dump(target, allow_unicode=True, default_flow_style=False)
+        # PyYAML default dump cannot serialize threading locks which might be hidden in CrewAI tasks.
+        # We need to sanitize the ticket to only include basic types before converting it to YAML.
+        import copy
+        target_copy = json.loads(json.dumps(target))  # cheap way to ensure only simple types remain
+        ticket_yaml = yaml.dump(target_copy, allow_unicode=True, default_flow_style=False)
         routing_json = json.dumps({})  # populated by context chain at runtime
 
         inputs = {
