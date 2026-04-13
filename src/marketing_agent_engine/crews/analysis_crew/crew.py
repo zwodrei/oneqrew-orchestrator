@@ -177,6 +177,13 @@ class AnalysisCrew:
         Falls back to raw string if JSON parse fails.
         """
         target = ticket or self._ticket
+        # Update tools with the actual ticket data before kickoff
+        for agent in self.agents:
+            if hasattr(agent, 'tools'):
+                for tool in agent.tools:
+                    if hasattr(tool, 'ticket'):
+                        tool.ticket = target
+                        
         # PyYAML default dump cannot serialize threading locks which might be hidden in CrewAI tasks.
         # We need to sanitize the ticket to only include basic types before converting it to YAML.
         import copy
