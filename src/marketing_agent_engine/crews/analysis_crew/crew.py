@@ -162,6 +162,7 @@ class AnalysisCrew:
             tasks=self.tasks,
             process=Process.sequential,
             verbose=True,
+            memory=True,
             knowledge_sources=_build_knowledge_sources(),
         )
 

@@ -191,7 +191,7 @@ class TestToolSets:
 class TestContextManager:
     def test_connect_and_disconnect_called(self) -> None:
         mock = _mock_mcp()
-        with GuardedMCPClient(dry_run=True, mcp_client=mock):
+        with GuardedMCPClient(dry_run=False, mcp_client=mock):
             pass
         mock.connect.assert_called_once()
         mock.disconnect.assert_called_once()
